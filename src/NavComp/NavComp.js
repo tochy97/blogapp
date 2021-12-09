@@ -20,18 +20,20 @@ export const NavComp = () => {
         <Navbar bg="dark" sticky="top" variant={"dark"} className="navbar-dark">
             <Navbar.Brand as={NavLink} style={{padding: "15px", marginLeft: "5%"}} to="/dashboard">Home</Navbar.Brand>
             <Nav.Item>
-                <Nav.Link as={NavLink} style={{padding: "15px", marginLeft: "5%",color:"#fff"}} to="/admin/addpost">Post</Nav.Link>
+                <Nav.Link as={NavLink} style={{padding: "15px", marginLeft: "5%",color:"#fff",}} to="/admin/addpost">Post</Nav.Link>
             </Nav.Item>
             <Nav.Item>
                 <Nav.Link as={NavLink} style={{padding: "15px", marginLeft: "5%",color:"#fff"}} to="/admin/register">Register</Nav.Link>
             </Nav.Item>
-            { !currentUser &&
-            <Nav.Item>
-                <Nav.Link as={NavLink} style={{padding: "15px", marginLeft: "5%",color:"#fff"}} to="/login">Login</Nav.Link>
-            </Nav.Item>}
-                        <div>
-                            { currentUser && <Button variant="dark" type="button" onClick={logout}>Logout</Button>}
-                        </div>
+            { 
+                !currentUser &&
+                <Nav.Item>
+                    <Nav.Link as={NavLink} style={{padding: "15px", marginLeft: "5%",color:"#fff"}} to="/login">Login</Nav.Link>
+                </Nav.Item>
+            }
+            <div>
+                { currentUser && <Button variant="dark" type="button" onClick={logout}>Logout</Button>}
+            </div>
         </Navbar>
     )
 }

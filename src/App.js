@@ -16,8 +16,6 @@ function App() {
         <Route path="/admin/*" element={<Admin/>}/>
         <Route path="/login" element={<Navigate to="/admin/login" />}/>
       </Routes>
-        <Card>
-        </Card>
     </div>
   );
 }

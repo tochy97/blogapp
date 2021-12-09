@@ -42,7 +42,8 @@ export const Register = () => {
                     histroy("../dashboard", {replace:true});
             })
             .catch(err=>{
-                setError("Failed to create account with : " + err.response.status + " error");
+                const text = err.message.split("(");
+                setError(err.message.split("(")[0]);
             })
         })
         .catch(err=>{
@@ -57,26 +58,26 @@ export const Register = () => {
                 <Col md={6} sm={12} xm={12} className="mx-auto">
                     <Form onSubmit={handleSubmit}>
                         <Form.Group id="username">
-                            <Form.Label>User Name</Form.Label>
+                            <Form.Label style={{marginTop: "1rem"}} >User Name</Form.Label>
                             <Form.Control type="text" placeholder="User Name" value={username} onChange={e=>setUsername(e.target.value)}></Form.Control>
                         </Form.Group>
                         <Form.Group id="realname">
-                            <Form.Label>Real Name</Form.Label>
+                            <Form.Label style={{marginTop: "1rem"}} >Real Name</Form.Label>
                             <Form.Control type="text" placeholder="First and Last Name" value={realname} onChange={e=>setRealname(e.target.value)}></Form.Control>
                         </Form.Group>
                         <Form.Group id="email">
-                            <Form.Label>Email</Form.Label>
+                            <Form.Label style={{marginTop: "1rem"}} >Email</Form.Label>
                             <Form.Control type="email" placeholder="Email" value={email} onChange={e=>setEmail(e.target.value)}></Form.Control>
                         </Form.Group>
                         <Form.Group id="password">
-                            <Form.Label>Password</Form.Label>
+                            <Form.Label style={{marginTop: "1rem"}} >Password</Form.Label>
                             <Form.Control type="password" placeholder="Password" rvalue={password} onChange={e=>setPassword(e.target.value)}></Form.Control>
                         </Form.Group>
                         <Form.Group id="confirm">
-                            <Form.Label>Password Conrimation</Form.Label>
+                            <Form.Label style={{marginTop: "1rem"}} >Password Conrimation</Form.Label>
                             <Form.Control type="password" placeholder="Password Conrimation" value={confirm} onChange={e=>setConfirm(e.target.value)}></Form.Control>
                         </Form.Group>
-                        <Button className="w-100 mt-3" variant="dark" type="submit">Register User</Button>
+                        <Button className="w-100 mt-4" variant="dark" type="submit">Register User</Button>
                     </Form>
                 </Col>
             </Row>

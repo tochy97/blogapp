@@ -1,0 +1,45 @@
+import * as types from "../types/postType";
+import {storage, store} from "../../config/firebase";
+
+const setLoading = data =>({
+    type:types.SET_LOADING,
+    payload:data,
+})
+
+const addPost = data =>({
+    type:types.ADD_POST,
+    payload:data,
+})
+
+export const doPost = (data, post, setProgress) =>dispatch=>{
+    store.collection("post").add(data).then(async res=>{
+        const document = await res.get();
+        const postData = {data: document.data(),id: document.id};
+        const uploadRef = storage.ref(`posts/${data.group}/${document.id}`);
+
+        uploadRef.put(post).on("state_change", (snapshot) =>{
+            const progress = Math.round((snapshot.bytesTransferred/snapshot.totalBytes) *100)
+            setProgress(progress);
+        },(err) =>{
+            console.log(err);
+        },async () =>{
+            const url = await uploadRef.getDownloadURL();
+            console.log(url);
+            store.collection("post").doc(document.id).update({
+                post:url,
+            })
+            .then(()=>{
+                postData.data.post = url;
+                dispatch(addPost(postData));
+                console.log("Success");
+            })
+            .catch((err) =>{
+                console.log(err);
+            })
+        });
+    })
+    .catch(err=>{
+        console.log(err);
+    })
+    //dispatch(setLoading(false));
+}   

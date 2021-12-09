@@ -23,10 +23,11 @@ export const Login = () => {
                 id: user.uid,
                 }
                 dispatch(loginUser(data));
-                histroy("../register", {replace:true});
+                histroy("../dashboard", {replace:true});
         })
         .catch(err=>{
-            setError("Failed to create account with : " + err.response.status + " error");
+            const text = err.message.split("(");
+            setError(err.message.split("(")[0]);
         })
     }
 
@@ -38,14 +39,14 @@ export const Login = () => {
                 <Col md={6} sm={12} xm={12} className="mx-auto">
                     <Form onSubmit={handleSubmit}>
                         <Form.Group id="email">
-                            <Form.Label>Email</Form.Label>
+                            <Form.Label style={{marginTop: "1rem"}} >Email</Form.Label>
                             <Form.Control type="email" placeholder="Email" value={email} onChange={e=>setEmail(e.target.value)}></Form.Control>
                         </Form.Group>
                         <Form.Group id="password">
-                            <Form.Label>Password</Form.Label>
+                            <Form.Label style={{marginTop: "1rem"}} >Password</Form.Label>
                             <Form.Control type="password" placeholder="Password" rvalue={password} onChange={e=>setPassword(e.target.value)}></Form.Control>
                         </Form.Group>
-                        <Button className="w-100 mt-3" variant="dark" type="submit">Login</Button>
+                        <Button className="w-100 mt-4" variant="dark" type="submit">Login</Button>
                     </Form>
                 </Col>
             </Row>
