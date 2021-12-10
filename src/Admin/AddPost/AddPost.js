@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import {Row, Col, Form, Button, Card, Alert, ProgressBar} from "react-bootstrap";
 import { getAuth } from "firebase/auth";
 import { doPost } from '../../redux/actionCreators/postActionCreators';
@@ -31,17 +31,16 @@ export const AddPost = () => {
         const data = {
             title:title,
             author: currentUser.displayName,
+            createdBy: currentUser.uid,
             group:group,
             createdDate: new Date(),
             desc:desc,
             post:"",
+            comments:[],
         }
         dispatch(doPost(data,post,setProgress))
     }
 
-    function handleChange(e) {
-        e.preventDefault();
-    }
     return (
         <Card className="py-4">
             <Row>
@@ -50,25 +49,27 @@ export const AddPost = () => {
                     {
                         progress > 0 && progress < 100? 
                             <> <h1>Uploading Post {progress} % </h1>  <ProgressBar now={progress} max={100}/> </> 
-                            : progress === 100 ?
-                            <> <h1>Post uploaded succcessfully</h1></> 
+                            : progress === 100 
+                                ? <> <h1>Post uploaded succcessfully</h1>
+                                    <h4>Please refresh page</h4>
+                                </> 
                             :
-                        <Form className='textforms' onSubmit={handleSubmit}>
-                            <h4>Upload File</h4>  
-                            <Form.Group id="title"> 
-                                <Form.Control type="text" value={title} onChange={e=>setTitle(e.target.value)} placeholder="Title"/>
-                            </Form.Group>
-                            <Form.Group id="desc">
-                                <textarea className="form-control" value={desc} onChange={e=>setDesc(e.target.value)} style={{height: "105px", marginTop: "1rem"}} placeholder="Enter description..."/>
-                            </Form.Group>
-                            <Form.Group id="group"> 
-                                <Form.Control type="text" value={group} onChange={e=>setGroup(e.target.value)} style={{marginTop: "1rem"}} placeholder="Group"/>
-                            </Form.Group>
-                            <Form.Group id="file">
-                                <Form.Control type="file" onChange={e=>setPost(e.target.files[0])} style={{marginTop: "1rem"}} type="file"/>
-                            </Form.Group>
-                            <Button className="w-100 mt-3" variant="dark" type="submit">Upload</Button>
-                        </Form>
+                                <Form onSubmit={handleSubmit}>
+                                    <h1 className="font-weight-bold text-center py-4" >Upload File</h1>  
+                                    <Form.Group id="title"> 
+                                        <Form.Control type="text" value={title} onChange={e=>setTitle(e.target.value)} placeholder="Title"/>
+                                    </Form.Group>
+                                    <Form.Group id="desc">
+                                        <textarea className="form-control" value={desc} onChange={e=>setDesc(e.target.value)} style={{height: "105px", marginTop: "1rem"}} placeholder="Enter description..."/>
+                                    </Form.Group>
+                                    <Form.Group id="group"> 
+                                        <Form.Control type="text" value={group} onChange={e=>setGroup(e.target.value)} style={{marginTop: "1rem"}} placeholder="Group"/>
+                                    </Form.Group>
+                                    <Form.Group id="file">
+                                        <Form.Control type="file" onChange={e=>setPost(e.target.files[0])} style={{marginTop: "1rem"}}/>
+                                    </Form.Group>
+                                    <Button className="w-100 mt-3" variant="dark" type="submit">Upload</Button>
+                                </Form>
                     }
                 </Col>
             </Row>

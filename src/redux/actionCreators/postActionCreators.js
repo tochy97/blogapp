@@ -1,4 +1,4 @@
-import * as types from "../types/postType";
+import * as types from "../types/postTypes";
 import {storage, store} from "../../config/firebase";
 
 const setLoading = data =>({
@@ -8,6 +8,16 @@ const setLoading = data =>({
 
 const addPost = data =>({
     type:types.ADD_POST,
+    payload:data,
+})
+
+const getPost = data =>({
+    type:types.SET_POST,
+    payload:data,
+})
+
+const addComment = data =>({
+    type:types.ADD_COMMENT,
     payload:data,
 })
 
@@ -43,3 +53,34 @@ export const doPost = (data, post, setProgress) =>dispatch=>{
     })
     //dispatch(setLoading(false));
 }   
+
+export const fetchPost =() =>dispatch=>{
+    dispatch(setLoading(true));
+    store.collection("post").get().then(posts=>{
+        const allPost = [];
+
+        posts.forEach(post => {
+            const data = {postData:post.data(),postId:post.id};
+            allPost.push(data);
+        });
+        dispatch(getPost(allPost));
+        dispatch(setLoading(false));
+    })
+    .catch((err)=>{
+        console.log(err);
+    })
+}
+
+export const doComment = (comment,postId,prev)=>(dispatch)=>{
+    const old = prev;
+    old.push(comment);
+    store.collection("post").doc(postId).update({
+        comments:old,
+    })
+    .then(()=>{
+        dispatch({comment, postId})
+    })
+    .catch((err) =>{
+        console.log(err);
+    })
+}

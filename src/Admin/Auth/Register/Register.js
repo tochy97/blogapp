@@ -3,7 +3,7 @@ import {Row, Col, Form, Button, Card, Alert} from "react-bootstrap";
 import {useDispatch} from "react-redux"
 import {useNavigate} from "react-router-dom"
 import {auth} from "../../../config/firebase"
-import {loginUser,logoutUser} from "../../../redux/actionCreators/authActionCreators"
+import {loginUser} from "../../../redux/actionCreators/authActionCreators"
 
 export const Register = () => {
     const [username,setUsername] = useState("");
@@ -42,7 +42,6 @@ export const Register = () => {
                     histroy("../dashboard", {replace:true});
             })
             .catch(err=>{
-                const text = err.message.split("(");
                 setError(err.message.split("(")[0]);
             })
         })

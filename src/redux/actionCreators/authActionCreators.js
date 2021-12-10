@@ -1,12 +1,12 @@
-import * as type from "../types/authType";
+import * as types from "../types/authTypes";
 
 //goes to authReducer SET_USER
 const setUser = (data)=>({
-    type:type.SET_USER,
+    type:types.SET_USER,
     payload:data
 })
 const resetUser = ()=>({
-    type:type.RESET_USER,
+    type:types.RESET_USER,
 })
 export const loginUser = (data) => dispatch=>{
     dispatch(setUser(data));

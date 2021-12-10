@@ -1,18 +1,27 @@
-import './App.css';
-import React, { useState } from 'react';
-import { Card, Navbar } from 'react-bootstrap';
-import {Routes, Route,Navigate} from "react-router-dom"
-import Dashboard from "./Admin/Dashboard/Dashboard"
-import Admin from "./Admin"
+import React, {useEffect} from 'react';
+import { useDispatch,useSelector } from 'react-redux';
+import {Routes, Route, Navigate, useNavigate} from "react-router-dom";
+import Admin from "./Admin";
 import NavComp from './NavComp/NavComp';
-import {auth} from "./config/firebase"
+import { auth } from './config/firebase';
+import { fetchPost } from './redux/actionCreators/postActionCreators';
+import { loginUser } from './redux/actionCreators/authActionCreators';
 
 function App() {
+  const isLoading = useSelector(state => state.post.isLoading);
+  const dispatch = useDispatch();
+  const histroy = useNavigate();
+
+  useEffect(() => {
+    if(isLoading){
+      dispatch(fetchPost());
+    }
+  }, [isLoading,dispatch]);
+
   return (
     <div className="App">
       <NavComp/>
       <Routes>
-        <Route exact path="/*" element={<Dashboard/>}/>
         <Route path="/admin/*" element={<Admin/>}/>
         <Route path="/login" element={<Navigate to="/admin/login" />}/>
       </Routes>
