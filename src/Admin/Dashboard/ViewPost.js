@@ -24,7 +24,7 @@ const ViewPost = () => {
       }
     }, [isLoading,dispatch]);
 
-    const currentPost = !isLoading && post.length > 0 && post.find((pst) =>pst.postId === postId);
+    const currentPost = !isLoading && post.length > 0 && post.find((pst) =>pst.id === postId);
 
     function handleSubmit(e){
         e.preventDefault();
@@ -42,7 +42,7 @@ const ViewPost = () => {
                 comment:comment,
             }
             console.log(data)
-            dispatch(doComment(data,postId,currentPost.postData.comments))
+            dispatch(doComment(data,postId,currentPost.data.comments))
         }
         else
         {
@@ -60,11 +60,11 @@ const ViewPost = () => {
                 <Container>
                     <Row>
                         <Card className="mb-2 mt-2">
-                            <Card.Img style={{padding: "15px",}} src={currentPost.postData.post} alt={currentPost.postData.title} />
+                            <Card.Img style={{padding: "15px",}} src={currentPost.data.post} alt={currentPost.data.title} />
                             <Card.Body>
-                                <Card.Title>Title: {currentPost.postData.title}</Card.Title>
-                                <Card.Subtitle  style={{ marginBottom: "5px",}} >Description: {currentPost.postData.desc}</Card.Subtitle>
-                                <Card.Subtitle>Group: {currentPost.postData.group}</Card.Subtitle>
+                                <Card.Title>Title: {currentPost.data.title}</Card.Title>
+                                <Card.Subtitle  style={{ marginBottom: "5px",}} >Description: {currentPost.data.desc}</Card.Subtitle>
+                                <Card.Subtitle>Group: {currentPost.data.group}</Card.Subtitle>
                                 <Card className="p-3 mt-2"> 
                                     {
                                         currentUser
@@ -81,15 +81,15 @@ const ViewPost = () => {
                                                 </Link>
                                     }
                                     {
-                                        currentPost.postData.comments.length < 1
+                                        currentPost.data.comments.length < 1
                                             ?   <Card className="p-2 mt-2">
                                                     <h1 className="text-center">No Comments Found</h1>
                                                 </Card>
                                         :
-                                            currentPost.postData.comments.map((comment,index)=>(
+                                            currentPost.data.comments.map((comment,index)=>(
                                                 <Card className="p-2 mt-2" key={index}>
-                                                    <Card.Title>By: {comment.author}</Card.Title>
-                                                    <Card.Subtitle  style={{ marginBottom: "5px",}} >Description: {comment.comment}</Card.Subtitle>
+                                                    <Card.Title>From: {comment.author}</Card.Title>
+                                                    <Card.Subtitle  style={{ marginBottom: "5px",}} >{comment.comment}</Card.Subtitle>
                                                 </Card>
                                             ))
                                     }

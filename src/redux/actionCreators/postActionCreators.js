@@ -16,6 +16,16 @@ const getPost = data =>({
     payload:data,
 })
 
+const resetPost = data =>({
+    type:types.RESET_POST,
+    payload:data,
+})
+
+const deletePost = data =>({
+    type:types.DELETE_POST,
+    payload:data,
+})
+
 const addComment = data =>({
     type:types.ADD_COMMENT,
     payload:data,
@@ -60,7 +70,7 @@ export const fetchPost =() =>dispatch=>{
         const allPost = [];
 
         posts.forEach(post => {
-            const data = {postData:post.data(),postId:post.id};
+            const data = {data:post.data(),id:post.id};
             allPost.push(data);
         });
         dispatch(getPost(allPost));
@@ -81,6 +91,20 @@ export const doComment = (comment,postId,prev)=>(dispatch)=>{
         dispatch({comment, postId})
     })
     .catch((err) =>{
+        console.log(err);
+    })
+}
+
+export const removePost = (postId,imgUrl) => (dispatch)=> {
+    storage.refFromURL(imgUrl).delete()
+    .then(()=>{
+        store.collection("post").doc(postId).delete()
+        .then(()=>{
+            dispatch(deletePost(postId));
+            console.log("success");
+        })
+    })
+    .catch((err)=>{
         console.log(err);
     })
 }

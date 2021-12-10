@@ -1,4 +1,4 @@
-import { SET_LOADING, ADD_POST, SET_POST, RESET_POST, ADD_COMMENT } from "../types/postTypes";
+import { SET_LOADING, ADD_POST, SET_POST, RESET_POST, ADD_COMMENT, DELETE_POST } from "../types/postTypes";
 
 const initialState = {
     isLoading: true,
@@ -24,8 +24,14 @@ const postReducer = (state=initialState, {type, payload})=>{
         case RESET_POST:
             state=initialState;
             return state;
+        case DELETE_POST:
+            const filteredPosts = state.posts.filter(pst=> pst.id !== payload.id);
+            state={
+                ...state,post:filteredPosts,
+            }
+            return state;
         case ADD_COMMENT:
-            const findPost = state.post.find(pst=>pst.postId = payload.postId);
+            const findPost = state.post.find(pst=>pst.posts.id = payload.id);
             const comments = findPost.postData.comments;
             comments.push(payload.comment)
             findPost.postData.comment = comments

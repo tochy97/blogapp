@@ -33,16 +33,16 @@ export const Dashboard = () => {
                     :
                         myPosts.map((pst, index) =>(
                             <Card className="col-md-5 mx-aut px-0" key={index}>
-                                <Card.Img src={pst.postData.post} alt={pst.postData.title}/>
+                                <Card.Img src={pst.data.post} alt={pst.data.title}/>
                                 <Card.Body>
-                                    <Card.Title>Title: {pst.postData.title}</Card.Title>
-                                    <Card.Subtitle  style={{ marginBottom: "5px",}} >Description: {pst.postData.desc}</Card.Subtitle>
-                                    <Card.Subtitle>Group: {pst.postData.group}</Card.Subtitle>
-                                    <Card.Footer className="bg-white">
+                                    <Card.Title>Title: {pst.data.title}</Card.Title>
+                                    <Card.Subtitle  style={{ marginBottom: "5px",}} >Description: {pst.data.desc}</Card.Subtitle>
+                                    <Card.Subtitle>Group: {pst.data.group}</Card.Subtitle>
+                                    <Card.Footer className="bg-white mt-2">
                                         <div className="d-flex w-100 px-5 py-2 align-items-center">
-                                        <p className="py-1 px-2">By: {pst.postData.author}</p>
+                                        <p className="py-1 px-2">By: {pst.data.author}</p>
                                         </div>
-                                        <Button variant="dark" onClick={()=>histroy(`../post/${pst.postId}`, {replace:true})} className="form-control mb-0">See Post</Button>
+                                        <Button variant="dark" onClick={()=>histroy(`../post/${pst.id}`, {replace:true})} className="form-control mb-0">See Post</Button>
                                     </Card.Footer>
                                 </Card.Body>
                             </Card>
