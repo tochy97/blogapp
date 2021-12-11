@@ -86,9 +86,10 @@ const ViewPost = () => {
                                                 </Card>
                                         :
                                             currentPost.data.comments.map((comment,index)=>(
-                                                <Card className="p-2 mt-2" key={index}>
-                                                    <Card.Title>From: {comment.author}</Card.Title>
-                                                    <Card.Subtitle  style={{ marginBottom: "5px",}} >{comment.comment}</Card.Subtitle>
+                                                <Card className="p-3 mt-2" key={index}>
+                                                    <Card.Title style={{ marginBottom: "5px",}} >{comment.comment}</Card.Title>
+                                                    <Card.Text>From: {comment.author} </Card.Text>
+                                                    <Card.Subtitle style={{ fontSize:"15px",}} >{Intl.DateTimeFormat('en-US', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' }).format(comment.createdDate.toDate())}</Card.Subtitle >
                                                 </Card>
                                             ))
                                     }

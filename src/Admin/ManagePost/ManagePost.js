@@ -40,6 +40,7 @@ export const ManagePost = () => {
                                     <Card.Title>Title: {pst.data.title}</Card.Title>
                                     <Card.Subtitle  style={{ marginBottom: "5px",}} >Description: {pst.data.desc}</Card.Subtitle>
                                     <Card.Subtitle>Group: {pst.data.group}</Card.Subtitle>
+                                    <Card.Subtitle style={{ fontSize:"15px",}} >{Intl.DateTimeFormat('en-US', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' }).format(pst.data.createdDate.toDate())}</Card.Subtitle >
                                     <Card.Footer className="bg-white mt-2">
                                         <div className="d-flex w-100 px-5 py-2 align-items-center">
                                         <p>By: {pst.data.author} </p>
