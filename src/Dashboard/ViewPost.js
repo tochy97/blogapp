@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import { useParams } from 'react-router'
 import { useDispatch,useSelector,shallowEqual } from 'react-redux'
 import { Container, Row, Col, Card, Form, Button, Alert } from 'react-bootstrap';
-import { doComment, fetchPost } from '../../redux/actionCreators/postActionCreators';
+import { doComment, fetchPost } from '../redux/actionCreators/postActionCreators';
 import { getAuth } from "firebase/auth";
 import { Link } from 'react-router-dom';
 
@@ -35,14 +35,13 @@ const ViewPost = () => {
             }
             setError("");
             const data={
-                postId:postId,
+                id:postId,
                 author: currentUser.displayName,
                 createdBy: currentUser.uid,
                 createdDate: new Date(),
                 comment:comment,
             }
-            console.log(data)
-            dispatch(doComment(data,postId,currentPost.data.comments))
+            dispatch(doComment(data,postId,currentPost.data.comments));
         }
         else
         {

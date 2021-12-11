@@ -4,8 +4,8 @@ import Login from "./Auth/Login/Login"
 import Register from "./Auth/Register/Register"
 import AddPost from "./AddPost/AddPost"
 import ManagePost from "./ManagePost/ManagePost"
-import ViewPost from './Dashboard/ViewPost';
-import Dashboard from "./Dashboard/Dashboard";
+import ViewPost from '../Dashboard/ViewPost';
+import Dashboard from "../Dashboard/Dashboard";
 import { auth } from '../config/firebase'
 import { loginUser } from '../redux/actionCreators/authActionCreators'
 import { useSelector, useDispatch } from 'react-redux'

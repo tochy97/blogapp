@@ -25,16 +25,17 @@ const postReducer = (state=initialState, {type, payload})=>{
             state=initialState;
             return state;
         case DELETE_POST:
-            const filteredPosts = state.posts.filter(pst=> pst.id !== payload.id);
+            const filteredPosts = state.posts.filter(pst=> pst.id !== payload);
             state={
-                ...state,post:filteredPosts,
+                ...state,posts:filteredPosts,
             }
             return state;
         case ADD_COMMENT:
-            const findPost = state.post.find(pst=>pst.posts.id = payload.id);
-            const comments = findPost.postData.comments;
+            const findPost = state.posts.find(pst=>pst.id === payload.postId);
+            console.log(findPost)
+            const comments = findPost.data.comments;
             comments.push(payload.comment)
-            findPost.postData.comment = comments
+            findPost.data.comments = comments
             state={ ...state, post: state.post.map(pt=>pt.postId = payload.postId? findPost : pt),
             };
             return state;

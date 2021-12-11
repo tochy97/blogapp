@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import {Card,Row,Col,Button} from "react-bootstrap";
 import { shallowEqual, useSelector, useDispatch } from 'react-redux';
 import {useNavigate} from "react-router-dom"
-import { fetchPost } from '../../redux/actionCreators/postActionCreators';
+import { fetchPost } from '../redux/actionCreators/postActionCreators';
 
 export const Dashboard = () => {
     const {isLoading, post, userID} = useSelector(

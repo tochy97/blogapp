@@ -88,7 +88,7 @@ export const doComment = (comment,postId,prev)=>(dispatch)=>{
         comments:old,
     })
     .then(()=>{
-        dispatch({comment, postId})
+        dispatch(addComment({ postId, data:comment }));
     })
     .catch((err) =>{
         console.log(err);
@@ -101,7 +101,6 @@ export const removePost = (postId,imgUrl) => (dispatch)=> {
         store.collection("post").doc(postId).delete()
         .then(()=>{
             dispatch(deletePost(postId));
-            console.log("success");
         })
     })
     .catch((err)=>{

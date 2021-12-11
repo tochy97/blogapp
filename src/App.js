@@ -6,6 +6,7 @@ import NavComp from './NavComp/NavComp';
 import { auth } from './config/firebase';
 import { fetchPost } from './redux/actionCreators/postActionCreators';
 import { loginUser } from './redux/actionCreators/authActionCreators';
+import Dashboard from './Dashboard/Dashboard';
 
 function App() {
   const isLoading = useSelector(state => state.post.isLoading);
@@ -22,6 +23,7 @@ function App() {
     <div className="App">
       <NavComp/>
       <Routes>
+        <Route exact path="/" element={<Dashboard/>}/>
         <Route path="/admin/*" element={<Admin/>}/>
         <Route path="/login" element={<Navigate to="/admin/login" />}/>
       </Routes>
