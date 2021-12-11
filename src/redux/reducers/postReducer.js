@@ -31,13 +31,8 @@ const postReducer = (state=initialState, {type, payload})=>{
             }
             return state;
         case ADD_COMMENT:
-            const findPost = state.posts.find(pst=>pst.id === payload.postId);
-            console.log(findPost)
-            const comments = findPost.data.comments;
-            comments.push(payload.comment)
-            findPost.data.comments = comments
-            state={ ...state, post: state.post.map(pt=>pt.postId = payload.postId? findPost : pt),
-            };
+            state={ ...state, posts:state.posts.map(pst=>pst.id === payload.postId? pst.data.comments.push(payload.data) && pst : pst),
+            };  
             return state;
         default:
             return state;
