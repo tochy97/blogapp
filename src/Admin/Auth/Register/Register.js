@@ -54,7 +54,7 @@ export const Register = () => {
             <Row>
                 <h1 className="font-weight-bold text-center py-4">Register</h1>
                 {error && <Alert variant="danger">{error}</Alert>}
-                <Col md={6} sm={12} xm={12} className="mx-auto">
+                <Col md={6} className="mx-auto">
                     <Form onSubmit={handleSubmit}>
                         <Form.Group id="username">
                             <Form.Label style={{marginTop: "1rem"}} >User Name</Form.Label>
