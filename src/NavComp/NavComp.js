@@ -4,7 +4,7 @@ import { useSelector,useDispatch } from 'react-redux'
 import { NavLink, useNavigate } from 'react-router-dom'
 import { auth } from '../config/firebase'
 import { getAuth } from "firebase/auth";
-import {logoutUser} from "../redux/actionCreators/authActionCreators"
+import {logoutUser} from "../redux/actionCreators/authActionCreators"   
 
 export const NavComp = () => {
     const dispatch = useDispatch();
@@ -17,7 +17,7 @@ export const NavComp = () => {
         histroy("../../dashboard", {replace:true});
     }
     return (
-        <Navbar bg="dark" expand="lg" variant={"dark"} className="navbar-dark">
+        <Navbar bg="dark" expand="lg" variant={"dark"} className="navbar-dark" style={{width:"100%"}} >
             <Navbar.Brand as={NavLink} style={{padding: "15px", marginLeft: "5%"}} to="/admin">Home</Navbar.Brand>
             { 
                 currentUser ?
@@ -34,7 +34,6 @@ export const NavComp = () => {
                 <div>
                     <Button variant="dark" type="button" onClick={logout}>Logout</Button>
                 </div>
-                <p style={{marginLeft: "50rem", color:"#fff", marginTop:"1rem"}}>Welcome, {currentUser.displayName}</p>
                 </>
                 :
                 <Nav.Item>

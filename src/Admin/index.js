@@ -8,7 +8,7 @@ import ViewPost from '../Dashboard/ViewPost';
 import Dashboard from "../Dashboard/Dashboard";
 import { auth } from '../config/firebase'
 import { loginUser } from '../redux/actionCreators/authActionCreators'
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux';
   
 const Admin = () => {
     const isLoggedIn = useSelector(state=>state.auth.isLoggedIn);
