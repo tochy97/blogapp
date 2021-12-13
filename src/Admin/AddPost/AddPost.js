@@ -44,7 +44,7 @@ export const AddPost = () => {
     return (
         <Card className="py-4">
             <Row>
-                <Col md={6} className="mx-auto">
+                <Col lg={10} className="mx-auto">
                     {error && <Alert variant="danger">{error}</Alert>}
                     {
                         progress > 0 && progress < 100? 

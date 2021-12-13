@@ -19,20 +19,22 @@ export const NavComp = () => {
     return (
         <Navbar bg="dark" expand="lg" variant={"dark"} className="navbar-dark" style={{width:"100%"}} >
             <Navbar.Brand as={NavLink} style={{padding: "15px", marginLeft: "5%"}} to="/admin">Home</Navbar.Brand>
+            <Navbar.Toggle aria-controls="basic-navbar-nav" />
+            <Navbar.Collapse id="basic-navbar-nav">
             { 
                 currentUser ?
                 <>
                 <Nav.Item>
-                    <Nav.Link as={NavLink} style={{padding: "15px", marginLeft: "2%",color:"#fff",}} to="/admin/add">Post</Nav.Link>
+                    <Nav.Link as={NavLink} style={{padding: "15px", marginLeft: "5%",color:"#fff",}} to="/admin/add">Post</Nav.Link>
                 </Nav.Item>
                 <Nav.Item>
-                    <Nav.Link as={NavLink} style={{padding: "15px", marginLeft: "2%",color:"#fff",}} to="/admin/manage">Manage</Nav.Link>
+                    <Nav.Link as={NavLink} style={{padding: "15px", marginLeft: "5%",color:"#fff",}} to="/admin/manage">Manage</Nav.Link>
                 </Nav.Item>
                 <Nav.Item>
-                    <Nav.Link as={NavLink} style={{padding: "15px", marginLeft: "2%",color:"#fff"}} to="/admin/register">Register</Nav.Link>
+                    <Nav.Link as={NavLink} style={{padding: "15px", marginLeft: "5%",color:"#fff"}} to="/admin/register">Register</Nav.Link>
                 </Nav.Item>
                 <div>
-                    <Button variant="dark" type="button" onClick={logout}>Logout</Button>
+                    <Button variant="dark" style={{padding: "15px", marginLeft: "5%",color:"#fff"}} type="button" onClick={logout}>Logout</Button>
                 </div>
                 </>
                 :
@@ -40,6 +42,7 @@ export const NavComp = () => {
                     <Nav.Link as={NavLink} style={{padding: "15px", marginLeft: "5%",color:"#fff"}} to="/login">Login</Nav.Link>
                 </Nav.Item>
             }
+            </Navbar.Collapse>
         </Navbar>
     )
 }
