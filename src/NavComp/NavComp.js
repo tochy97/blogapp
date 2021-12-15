@@ -1,5 +1,5 @@
 import React from 'react'
-import { Navbar, Nav, Button } from 'react-bootstrap'
+import { Navbar, Nav, Button, NavDropdown, Container } from 'react-bootstrap'
 import { useSelector,useDispatch } from 'react-redux'
 import { NavLink, useNavigate } from 'react-router-dom'
 import { auth } from '../config/firebase'
@@ -17,32 +17,37 @@ export const NavComp = () => {
         histroy("../../dashboard", {replace:true});
     }
     return (
-        <Navbar bg="dark" expand="lg" variant={"dark"} className="navbar-dark" style={{width:"100%"}} >
-            <Navbar.Brand as={NavLink} style={{padding: "15px", marginLeft: "5%"}} to="/admin">Home</Navbar.Brand>
+
+        <Navbar bg="light" expand="lg" variant="light" style={{padding: "15px",color:"#fff", borderRight:0}} >
+            <Container>
+            <Navbar.Brand href="/">Home</Navbar.Brand>
+            <Nav className="me-auto">
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
             { 
                 currentUser ?
                 <>
-                <Nav.Item>
-                    <Nav.Link as={NavLink} style={{padding: "15px", marginLeft: "5%",color:"#fff",}} to="/admin/add">Post</Nav.Link>
-                </Nav.Item>
-                <Nav.Item>
-                    <Nav.Link as={NavLink} style={{padding: "15px", marginLeft: "5%",color:"#fff",}} to="/admin/manage">Manage</Nav.Link>
-                </Nav.Item>
-                <Nav.Item>
-                    <Nav.Link as={NavLink} style={{padding: "15px", marginLeft: "5%",color:"#fff"}} to="/admin/register">Register</Nav.Link>
-                </Nav.Item>
-                <div>
-                    <Button variant="dark" style={{padding: "15px", marginLeft: "5%",color:"#fff"}} type="button" onClick={logout}>Logout</Button>
-                </div>
+                    <NavDropdown title="Posts">
+                        <NavDropdown.Item href="/admin/add">Add</NavDropdown.Item>
+                        <NavDropdown.Item href="/admin/manage">Manage</NavDropdown.Item>
+                    </NavDropdown>
+                    <Nav.Item>
+                        <Nav.Link href="/admin/register">Register</Nav.Link>
+                    </Nav.Item>
+                    <Nav.Item>
+                        <Nav.Item variant="light" style={{color:"#878787"}} type="button" onClick={logout}>Logout</Nav.Item>
+                    </Nav.Item>
                 </>
                 :
-                <Nav.Item>
-                    <Nav.Link as={NavLink} style={{padding: "15px", marginLeft: "5%",color:"#fff"}} to="/login">Login</Nav.Link>
-                </Nav.Item>
+                <>
+                    <Nav.Item>
+                        <Nav.Link href="/login">Login</Nav.Link>
+                    </Nav.Item>
+                </>
             }
             </Navbar.Collapse>
+            </Nav>
+            </Container>
         </Navbar>
     )
 }

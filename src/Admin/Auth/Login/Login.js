@@ -31,7 +31,7 @@ export const Login = () => {
     }
 
     return (
-        <Card className="py-4">
+        <Card className="py-4" style={{borderRight:0}}>
             <Row>
                 <h1 className="font-weight-bold text-center py-4">Login</h1>
                 {error && <Alert variant="danger">{error}</Alert>}
