@@ -1,10 +1,10 @@
 import React, {useEffect} from 'react'
 import { Routes ,Route, useNavigate } from "react-router-dom"
-import Login from "./Auth/Login/Login"
-import Register from "./Auth/Register/Register"
-import AddPost from "./AddPost/AddPost"
-import ManagePost from "./ManagePost/ManagePost"
-import ViewPost from '../Dashboard/ViewPost';
+import Login from "./Auth/Login"
+import Register from "./Auth/Register"
+import AddPost from "./Post/AddPost"
+import ManagePost from "./Post/ManagePost"
+import Profile from './Profile/Profile';
 import Dashboard from "../Dashboard/Dashboard";
 import { auth } from '../config/firebase'
 import { loginUser } from '../redux/actionCreators/authActionCreators'
@@ -15,6 +15,7 @@ const Admin = () => {
     const dispatch = useDispatch();
     const histroy = useNavigate();
 
+    console.log("test")
     useEffect(() => {
         auth.onAuthStateChanged(user=>{
             if(user === null){
@@ -33,8 +34,8 @@ const Admin = () => {
         <Routes>
             <Route exact path="/*" element={<Dashboard/>}/>
             <Route exact path="dashboard" element={<Dashboard/>}/>
-            <Route exact path="post/:postId" element={<ViewPost/>}/>
             <Route path="add" element={<AddPost/>}/>
+            <Route path="profile" element={<Profile/>}/>
             <Route path="manage" element={<ManagePost/>}/>
             <Route path="login" element={<Login/>}/>
             <Route path="register" element={<Register/>}/>

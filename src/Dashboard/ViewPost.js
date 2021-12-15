@@ -23,7 +23,6 @@ const ViewPost = () => {
         dispatch(fetchPost());
       }
     }, [isLoading,dispatch]);
-
     const currentPost = !isLoading && post.length > 0 && post.find((pst) =>pst.id === postId);
 
     function handleSubmit(e){

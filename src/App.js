@@ -5,6 +5,7 @@ import Admin from "./Admin";
 import NavComp from './NavComp/NavComp';
 import { fetchPost } from './redux/actionCreators/postActionCreators';
 import Dashboard from './Dashboard/Dashboard';
+import ViewPost from './Dashboard/ViewPost';
 
 function App() {
   const isLoading = useSelector(state => state.post.isLoading);
@@ -20,6 +21,7 @@ function App() {
     <div className="App">
       <NavComp/>
       <Routes>
+          <Route exact path="post/:postId" element={<ViewPost/>}/>
         <Route exact path="/" element={<Dashboard/>}/>
         <Route path="/admin/*" element={<Admin/>}/>
         <Route path="/login" element={<Navigate to="/admin/login" />}/>

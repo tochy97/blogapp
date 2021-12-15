@@ -9,7 +9,7 @@ export const Dashboard = () => {
         (state) =>({
             isLoading:state.post.isLoading, 
             post:state.post.posts,
-            userID:state.auth.user_id,
+            user:state.auth.user_id,
         }), shallowEqual);
     const dispatch = useDispatch();
     
