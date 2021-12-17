@@ -35,8 +35,8 @@ export const Register = () => {
             }).then(()=>{
                 const user = auth.currentUser
                 const data = {
-                    user: user.providerData[0],
-                    id: user.uid,
+                        user: user.providerData[0],
+                        id: user.uid,
                     }
                     dispatch(createUser(data.id, data.user.email, data.user.displayName,realname));
                     dispatch(loginUser(data));

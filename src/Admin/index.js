@@ -17,7 +17,6 @@ const Admin = () => {
     const dispatch = useDispatch();
     const histroy = useNavigate();
 
-    console.log("test")
     useEffect(() => {
         auth.onAuthStateChanged(user=>{
             if(user === null){

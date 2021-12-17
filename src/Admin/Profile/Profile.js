@@ -8,7 +8,6 @@ const Profile = () => {
         (state) =>({
             user:state.auth.user,
         }), shallowEqual);
-        console.log(user)
 
     return (
         <div>
