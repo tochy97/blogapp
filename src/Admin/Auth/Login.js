@@ -32,19 +32,19 @@ export const Login = () => {
 
     return (
         <Card className="py-4" style={{borderRight:0}}>
-            <Row>
+            <Row className="px-5 my-6 gap-5">
                 <h1 className="font-weight-bold text-center py-4">Login</h1>
                 {error && <Alert variant="danger">{error}</Alert>}
-                <Col md={6} sm={12} xm={12} className="mx-auto">
+                <Col lg={10}  className="mx-auto">
                     <Form onSubmit={handleSubmit}>
-                        <Form.Group id="email">
-                            <Form.Label style={{marginTop: "1rem"}} >Email</Form.Label>
+                        <Form.Floating id="email">
                             <Form.Control type="email" placeholder="Email" value={email} onChange={e=>setEmail(e.target.value)}></Form.Control>
-                        </Form.Group>
-                        <Form.Group id="password">
-                            <Form.Label style={{marginTop: "1rem"}} >Password</Form.Label>
+                            <Form.Label>Email</Form.Label>
+                        </Form.Floating>
+                        <Form.Floating id="password" style={{marginTop: "1rem"}} >
                             <Form.Control type="password" placeholder="Password" rvalue={password} onChange={e=>setPassword(e.target.value)}></Form.Control>
-                        </Form.Group>
+                            <Form.Label>Password</Form.Label>
+                        </Form.Floating>
                         <Button className="w-100 mt-4" variant="dark" type="submit">Login</Button>
                     </Form>
                 </Col>

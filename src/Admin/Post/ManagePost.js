@@ -44,7 +44,7 @@ export const ManagePost = () => {
                                         <div className="d-flex w-100 px-5 py-2 align-items-center">
                                         <p>By: {pst.data.author} </p>
                                         </div>
-                                        <Button variant="dark"  onClick={()=>histroy(`../post/${pst.id}`, {replace:true})} className="form-control mb-0">See Post</Button>
+                                        <Button variant="dark"  onClick={()=>histroy(`../../post/${pst.id}`, {replace:true})} className="form-control mb-0">See Post</Button>
                                         <Button variant="danger" onClick={()=>[dispatch(removePost(pst.id,pst.data.post)), histroy("../dashboard", {replace:true})]} className="form-control my-1 mb-0">Delete Post</Button>
                                     </Card.Footer>
                                 </Card.Body>

@@ -10,6 +10,7 @@ export const NavComp = () => {
     const dispatch = useDispatch();
     const histroy = useNavigate();
     const { currentUser } = getAuth();
+    const isLoading = useSelector(state => state.post.isLoading);
 
     const logout=()=>{
         auth.signOut();
@@ -18,44 +19,51 @@ export const NavComp = () => {
     }
     return (
 
-        <Navbar bg="light" expand="lg" variant="light" style={{padding: "15px",color:"#fff", borderRight:0}} >
-            <Container>
-            {   
-                currentUser ?
-                    <Navbar.Brand href="/admin/profile">Hello, {currentUser.providerData[0].displayName}</Navbar.Brand>
-                :
-                    <Navbar.Brand href="/">Home</Navbar.Brand>
-            }
-            <Nav className="me-auto">
-            <Navbar.Toggle aria-controls="basic-navbar-nav" />
-            <Navbar.Collapse id="basic-navbar-nav">
+        <Navbar bg="light" expand="lg" variant="light" style={{padding: "20px",color:"#fff", borderRight:0}} >
             { 
-                currentUser ?
-                <>
-                    <Nav.Item>
-                        <Nav.Link href="/">Dashboard</Nav.Link>
-                    </Nav.Item>
-                    <NavDropdown title="Posts">
-                        <NavDropdown.Item href="/admin/add">Add</NavDropdown.Item>
-                        <NavDropdown.Item href="/admin/manage">Manage</NavDropdown.Item>
-                    </NavDropdown>
-                    <Nav.Item>
-                        <Nav.Link href="/admin/register">Register</Nav.Link>
-                    </Nav.Item>
-                    <Nav.Item>
-                        <Nav.Item  placement="end"  variant="light" style={{color:"#878787"}} type="button" onClick={logout}>Logout</Nav.Item>
-                    </Nav.Item>
-                </>
-                :
-                <>
-                    <Nav.Item>
-                        <Nav.Link href="/login">Login</Nav.Link>
-                    </Nav.Item>
-                </>
+                !isLoading ?
+                <Container>
+                {   
+                    currentUser ?
+                        <Navbar.Brand href="/admin/profile">Hello, {currentUser.providerData[0].displayName}</Navbar.Brand>
+                    :
+                        <Navbar.Brand href="/">Home</Navbar.Brand>
+                }
+                <Nav className="me-auto">
+                <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                    <Navbar.Collapse id="basic-navbar-nav">
+                    { 
+                        currentUser ?
+                        <>
+                            <Nav.Item style={{marginLeft:"15px"}}>
+                                <Nav.Link href="/">Dashboard</Nav.Link>
+                            </Nav.Item>
+                            <NavDropdown title="Posts"  style={{marginLeft:"15px"}}>
+                                <NavDropdown.Item href="/admin/add">Add</NavDropdown.Item>
+                                <NavDropdown.Item href="/admin/manage">Manage</NavDropdown.Item>
+                            </NavDropdown>
+                            <Nav.Item  style={{marginLeft:"15px"}}>
+                                <Nav.Link href="/admin/register">Register</Nav.Link>
+                            </Nav.Item>
+                            <Nav.Item  style={{marginLeft:"15px"}}>
+                                <Nav.Item  placement="end"  variant="light" style={{color:"#878787"}} type="button" onClick={logout}>Logout</Nav.Item>
+                            </Nav.Item>
+                        </>
+                        :
+                        <>
+                            <Nav.Item  style={{marginLeft:"15px"}}>
+                                <Nav.Link href="/login">Login</Nav.Link>
+                            </Nav.Item>
+                            <Nav.Item  style={{marginLeft:"15px"}}>
+                                <Nav.Link href="/req">Request Account</Nav.Link>
+                            </Nav.Item>
+                        </>
+                    }
+                    </Navbar.Collapse>
+                </Nav>
+                </Container>
+            :<></>
             }
-            </Navbar.Collapse>
-            </Nav>
-            </Container>
         </Navbar>
     )
 }
