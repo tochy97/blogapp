@@ -12,7 +12,7 @@ const Profile = () => {
 
     return (
         <div>
-            {}
+            <h1 className='text-center mt-5'>Profile Page: Coming Soon....</h1>
         </div>
     )
 }

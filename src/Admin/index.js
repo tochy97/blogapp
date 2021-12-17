@@ -3,6 +3,8 @@ import { Routes ,Route, useNavigate } from "react-router-dom"
 import Login from "./Auth/Login"
 import Register from "./Auth/Register"
 import AddPost from "./Post/AddPost"
+import CreateGroup from "./Group/CreateGroup"
+import ManageGroup from "./Group/ManageGroup"
 import ManagePost from "./Post/ManagePost"
 import Profile from './Profile/Profile';
 import Dashboard from "../Dashboard/Dashboard";
@@ -34,9 +36,11 @@ const Admin = () => {
         <Routes>
             <Route exact path="/*" element={<Dashboard/>}/>
             <Route exact path="dashboard" element={<Dashboard/>}/>
-            <Route path="add" element={<AddPost/>}/>
+            <Route path="addpost" element={<AddPost/>}/>
+            <Route path="creategroup" element={<CreateGroup/>}/>
+            <Route path="managegroup" element={<ManageGroup/>}/>
             <Route path="profile" element={<Profile/>}/>
-            <Route path="manage" element={<ManagePost/>}/>
+            <Route path="managepost" element={<ManagePost/>}/>
             <Route path="login" element={<Login/>}/>
             <Route path="register" element={<Register/>}/>
         </Routes>

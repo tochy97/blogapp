@@ -39,8 +39,12 @@ export const NavComp = () => {
                                 <Nav.Link href="/">Dashboard</Nav.Link>
                             </Nav.Item>
                             <NavDropdown title="Posts"  style={{marginLeft:"15px"}}>
-                                <NavDropdown.Item href="/admin/add">Add</NavDropdown.Item>
-                                <NavDropdown.Item href="/admin/manage">Manage</NavDropdown.Item>
+                                <NavDropdown.Item href="/admin/addpost">Add</NavDropdown.Item>
+                                <NavDropdown.Item href="/admin/managepost">Manage</NavDropdown.Item>
+                            </NavDropdown>
+                            <NavDropdown title="Groups"  style={{marginLeft:"15px"}}>
+                                <NavDropdown.Item href="/admin/creategroup">Create</NavDropdown.Item>
+                                <NavDropdown.Item href="/admin/managegroup">Manage</NavDropdown.Item>
                             </NavDropdown>
                             <Nav.Item  style={{marginLeft:"15px"}}>
                                 <Nav.Link href="/admin/register">Register</Nav.Link>
