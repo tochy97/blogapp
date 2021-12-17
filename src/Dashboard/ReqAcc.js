@@ -16,6 +16,7 @@ const ReqAcc = () => {
         (state) =>({
             isReq:state.auth.req, 
         }), shallowEqual);
+
     function handleSubmit(e){
         e.preventDefault();
         dispatch(checkRequest(email));
@@ -35,7 +36,7 @@ const ReqAcc = () => {
             <Row className="px-5 my-6 gap-5">
         { 
             isReq ?
-                <h1>You cannot send 2 requests</h1>
+                <h1 className='text-center mt-5'>You cannot send 2 requests</h1>
             :
                 <>
                 <h1 className="font-weight-bold text-center py-4">Request an Account</h1>
