@@ -3,6 +3,7 @@ import {Card,Row,Col,Button} from "react-bootstrap";
 import { shallowEqual, useSelector, useDispatch } from 'react-redux';
 import { fetchPost, removePost } from '../../redux/actionCreators/postActionCreators';
 import {useNavigate} from "react-router-dom"
+import { Divider } from '@mui/material';
 
 export const ManagePost = () => {
     const histroy = useNavigate();
@@ -24,14 +25,20 @@ export const ManagePost = () => {
     const myPosts = post && post.filter((pst) => pst.data.createdBy === userID);
 
     return (
-        <Card className="py-4">
+        <Card className="py-4" style={{border:0}}>
             <Row className="px-5 my-6 gap-5">
                 { 
 
                     isLoading 
-                        ? <h1>Loading...</h1> 
+                        ? 
+                            <Card className="py-4" style={{height:"70vh"}}>
+                                <Divider><h1>Loading...</h1></Divider> 
+                            </Card>
                     : post.length < 1 || myPosts.length < 1 
-                        ? <h1>You have no posts</h1>
+                        ? 
+                            <Card className="py-4" style={{height:"70vh"}}>
+                                <Divider><h1>You have no posts</h1></Divider>
+                            </Card>
                     :
                         myPosts.map((pst, index) =>(
                             <Card className="col-md-5 mx-aut px-0" key={index}>

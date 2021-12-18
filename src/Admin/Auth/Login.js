@@ -1,9 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {Row, Col, Form, Button, Card, Alert} from "react-bootstrap";
 import {useDispatch} from "react-redux"
 import {useNavigate} from "react-router-dom"
 import {auth} from "../../config/firebase"
-import {loginUser} from "../../redux/actionCreators/authActionCreators"
+import { Divider } from '@mui/material';
+import {loginUser, logoutUser} from "../../redux/actionCreators/authActionCreators";
+import { getAuth } from "firebase/auth";
+
 
 export const Login = () => {
     const [email,setEmail] = useState("");
@@ -11,6 +14,7 @@ export const Login = () => {
     const [error,setError] = useState("");
     const dispatch = useDispatch();
     const histroy = useNavigate();
+    const { currentUser } = getAuth();
 
     function handleSubmit(e){
         e.preventDefault();
@@ -22,7 +26,7 @@ export const Login = () => {
                 id: user.uid,
                 }
                 dispatch(loginUser(data));
-                histroy("../dashboard", {replace:true});
+                histroy("../../", {replace:true});
         })
         .catch(err=>{
             const text = err.message.split("(");
@@ -30,10 +34,15 @@ export const Login = () => {
         })
     }
 
+    useEffect(() => {
+        auth.signOut();
+        dispatch(logoutUser);
+    }, []);
+
     return (
-        <Card className="py-4" style={{borderRight:0}}>
+        <Card className="py-4" style={{border:0, height:"70vh"}}>
             <Row className="px-5 my-6 gap-5">
-                <h1 className="font-weight-bold text-center py-4">Login</h1>
+                <Divider className="font-weight-bold text-center py-4"><h1>Login</h1></Divider>
                 {error && <Alert variant="danger">{error}</Alert>}
                 <Col lg={10}  className="mx-auto">
                     <Form onSubmit={handleSubmit}>

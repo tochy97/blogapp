@@ -2,6 +2,7 @@ import React, {useEffect} from 'react';
 import {Card,Row,Col,Button} from "react-bootstrap";
 import { shallowEqual, useSelector, useDispatch } from 'react-redux';
 import {useNavigate} from "react-router-dom"
+import { Divider } from '@mui/material';
 import { fetchPost } from '../redux/actionCreators/postActionCreators';
 
 export const Dashboard = () => {
@@ -23,13 +24,19 @@ export const Dashboard = () => {
     const histroy = useNavigate();
 
     return (
-        <Card className="py-4">
+        <Card className="py-4" style={{border:0}}>
             <Row className="px-5 my-6 gap-5">
                 { 
                     isLoading 
-                        ? <h1>Loading...</h1> 
+                        ? 
+                        <Card style={{height:"100vh"}}>
+                            <Divider><h1>Loading...</h1></Divider> 
+                        </Card>
                     : post.length < 1 || myPosts.length < 1 
-                        ? <h1>No Post Found</h1>
+                        ?
+                        <Card style={{height:"100vh"}}>
+                             <Divider><h1>No Post Found</h1></Divider>
+                        </Card>
                     :
                         myPosts.map((pst, index) =>(
                             <Card className="col-md-5 mx-aut px-0" key={index}>

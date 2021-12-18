@@ -3,6 +3,7 @@ import { shallowEqual, useSelector, useDispatch } from 'react-redux';
 import {Row, Col, Form, Button, Card, Alert} from "react-bootstrap";
 import {useNavigate} from "react-router-dom";
 import { setRequest, checkRequest } from '../redux/actionCreators/authActionCreators';
+import { Divider } from '@mui/material';
 
 const ReqAcc = () => {
     const [realname,setRealname] = useState("");
@@ -32,14 +33,14 @@ const ReqAcc = () => {
         dispatch(setRequest(req, email, realname));
     }
     return (
-        <Card className="py-4 align-center" style={{borderRight:0}}>
+        <Card className="py-4 align-center" style={{border:0, height:"70vh"}}>
             <Row className="px-5 my-6 gap-5">
         { 
             isReq ?
-                <h1 className='text-center mt-5'>You cannot send 2 requests</h1>
+                <Divider><h1 className='text-center mt-5'>Request Sent</h1></Divider>
             :
                 <>
-                <h1 className="font-weight-bold text-center py-4">Request an Account</h1>
+                <Divider className="font-weight-bold text-center py-4"><h1>Request an Account</h1></Divider>
                 {error && <Alert variant="danger">{error}</Alert>}
                 <Col lg={10} className="mx-auto">
                     <Form onSubmit={handleSubmit}>
@@ -52,8 +53,8 @@ const ReqAcc = () => {
                             <Form.Label>Email</Form.Label>
                         </Form.Floating>
                         <Form.Floating id="desc" style={{marginTop: "1rem"}} >
-                            <textarea className="form-control" value={req} onChange={e=>setReq(e.target.value)} style={{height: "105px", marginTop: "1rem"}} placeholder="Why do you want an account?..." required/>
-                            <Form.Label>Description</Form.Label>
+                            <textarea className="form-control" value={req} onChange={e=>setReq(e.target.value)} style={{height: "105px", marginTop: "1rem"}} placeholder="Why do you want an account...?" required/>
+                            <Form.Label>Why do you want an account...?</Form.Label>
                         </Form.Floating>
                         <Button className="w-100 mt-4" variant="dark" type="submit">Send Request</Button>
                     </Form>

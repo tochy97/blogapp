@@ -6,6 +6,7 @@ import AddPost from "./Post/AddPost"
 import CreateGroup from "./Group/CreateGroup"
 import ManageGroup from "./Group/ManageGroup"
 import ManagePost from "./Post/ManagePost"
+import Success from '../Dashboard/Success'
 import Profile from './Profile/Profile';
 import Dashboard from "../Dashboard/Dashboard";
 import { auth } from '../config/firebase'
@@ -35,6 +36,7 @@ const Admin = () => {
         <Routes>
             <Route exact path="/*" element={<Dashboard/>}/>
             <Route exact path="dashboard" element={<Dashboard/>}/>
+            <Route exact path="success" element={<Success/>}/>
             <Route path="addpost" element={<AddPost/>}/>
             <Route path="creategroup" element={<CreateGroup/>}/>
             <Route path="managegroup" element={<ManageGroup/>}/>

@@ -1,16 +1,20 @@
 import React, {useEffect, useState} from 'react';
 import { useParams } from 'react-router'
+import { NavLink, useNavigate } from 'react-router-dom'
 import { useDispatch,useSelector,shallowEqual } from 'react-redux'
 import { Container, Row, Col, Card, Form, Button, Alert } from 'react-bootstrap';
 import { doComment, fetchPost } from '../redux/actionCreators/postActionCreators';
 import { getAuth } from "firebase/auth";
 import { Link } from 'react-router-dom';
+import { Divider } from '@mui/material';
 
 const ViewPost = () => {
     const {postId} = useParams();
     const [comment,setComment] = useState("");
     const [error,setError] = useState("");
     const dispatch = useDispatch();
+    const histroy = useNavigate();
+    console.log(postId)
     const { currentUser } = getAuth();
 
     const {isLoading,post} = useSelector((state) => ({
@@ -23,7 +27,7 @@ const ViewPost = () => {
         dispatch(fetchPost());
       }
     }, [isLoading,dispatch]);
-    
+
     const currentPost = !isLoading && post.length > 0 && post.find((pst) =>pst.id === postId);
 
     function handleSubmit(e){
@@ -47,14 +51,15 @@ const ViewPost = () => {
         {
             return setError("You are not logged in");
         }
+
     }
     return (
         <>
         { 
             isLoading 
-                ? <h1>Loading...</h1> 
+                ? <Divider><h1>Loading...</h1></Divider> 
             : post.length < 1 || !isLoading && !currentPost
-                ? <h1>No Post Found</h1>
+                ? <Divider><h1>No Post Found</h1></Divider>
             :
                 <Container>
                     <Row>
@@ -65,6 +70,19 @@ const ViewPost = () => {
                                 <Card.Subtitle  style={{ marginBottom: "5px",}} >Description: {currentPost.data.desc}</Card.Subtitle>
                                 <Card.Subtitle>Group: {currentPost.data.group}</Card.Subtitle>
                                 <Card className="p-3 mt-2"> 
+                                    {
+                                        currentPost.data.comments.length < 1
+                                            ?   <Card className="p-2 mt-2">
+                                                    <Divider className="text-center">No Comments Found</Divider>
+                                                </Card>
+                                        :
+                                            currentPost.data.comments.map((comment,index)=>(
+                                                <Card className="p-3 mt-2" key={index}>
+                                                    <Card.Title style={{ marginBottom: "5px",}} >{comment.comment}</Card.Title>
+                                                    <Card.Text>From: {comment.author} </Card.Text>
+                                                </Card>
+                                            ))
+                                    }
                                     {
                                         currentUser
                                             ?    <Form className='mt-2' onSubmit={handleSubmit}>
@@ -78,19 +96,6 @@ const ViewPost = () => {
                                                 <Link to="../../login">
                                                     <Button className="w-100 mt-3" variant="dark" type="submit">Login to comment</Button>
                                                 </Link>
-                                    }
-                                    {
-                                        currentPost.data.comments.length < 1
-                                            ?   <Card className="p-2 mt-2">
-                                                    <h1 className="text-center">No Comments Found</h1>
-                                                </Card>
-                                        :
-                                            currentPost.data.comments.map((comment,index)=>(
-                                                <Card className="p-3 mt-2" key={index}>
-                                                    <Card.Title style={{ marginBottom: "5px",}} >{comment.comment}</Card.Title>
-                                                    <Card.Text>From: {comment.author} </Card.Text>
-                                                </Card>
-                                            ))
                                     }
                                 </Card>
                             </Card.Body>

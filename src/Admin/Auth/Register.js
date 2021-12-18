@@ -3,6 +3,7 @@ import {Row, Col, Form, Button, Card, Alert} from "react-bootstrap";
 import {useDispatch} from "react-redux"
 import {useNavigate} from "react-router-dom"
 import {auth} from "../../config/firebase"
+import { Divider } from '@mui/material';
 import {loginUser, createUser} from "../../redux/actionCreators/authActionCreators"
 
 export const Register = () => {
@@ -40,7 +41,7 @@ export const Register = () => {
                     }
                     dispatch(createUser(data.id, data.user.email, data.user.displayName,realname));
                     dispatch(loginUser(data));
-                    histroy("../dashboard", {replace:true});
+                    histroy("../../", {replace:true});
             })
             .catch(err=>{
                 setError(err.message.split("(")[0]);
@@ -51,9 +52,9 @@ export const Register = () => {
         })
     }
     return (
-        <Card className="py-4" style={{borderRight:0}}>
+        <Card className="py-4" style={{border:0, height:"70vh"}}>
             <Row className="px-5 my-6 gap-5">
-                <h1 className="font-weight-bold text-center py-4">Register</h1>
+                <Divider className="font-weight-bold text-center py-4"><h1>Register</h1></Divider>
                 {error && <Alert variant="danger">{error}</Alert>}
                 <Col lg={10} className="mx-auto">
                     <Form onSubmit={handleSubmit}>

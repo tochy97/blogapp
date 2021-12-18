@@ -1,0 +1,4 @@
+Only accept image files.
+Request account should be changed.
+Limit commenting ability.
+

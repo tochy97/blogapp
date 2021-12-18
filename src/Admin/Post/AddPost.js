@@ -2,11 +2,13 @@ import React, {useState} from 'react';
 import { useDispatch } from 'react-redux';
 import {Row, Col, Form, Button, Card, Alert, ProgressBar, FloatingLabel} from "react-bootstrap";
 import { getAuth } from "firebase/auth";
+import { Divider } from '@mui/material';
 import { doPost } from '../../redux/actionCreators/postActionCreators';
 
 export const AddPost = () => {
     const { currentUser } = getAuth();
     const [title,setTitle] = useState("");
+    const [fileType, setFileType] = useState("");
     const [desc,setDesc] = useState("");
     const [group,setGroup] = useState("");
     const [post,setPost] = useState("");
@@ -44,17 +46,16 @@ export const AddPost = () => {
     }
 
     return (
-        <Card className="py-4" style={{borderRight:0}}>
+        <Card className="py-4" style={{border:0}}>
             <Row className="px-5 my-6 gap-5">
-                <h1 className="font-weight-bold text-center py-4">Add Post</h1>
+                <Divider className="font-weight-bold text-center py-4"><h1>Add Post</h1></Divider>
                 {error && <Alert variant="danger">{error}</Alert>}
                 <Col lg={10} className="mx-auto">
                     {
                         progress > 0 && progress < 100? 
-                            <> <h1>Uploading Post {progress} % </h1>  <ProgressBar now={progress} max={100}/> </> 
+                            <> <Divider className="font-weight-bold text-center py-4"><h1>Uploading Post{progress} % </h1></Divider>  <ProgressBar now={progress} max={100}/> </> 
                             : progress === 100 
-                                ? <> <h1>Post uploaded succcessfully</h1>
-                                    <h4>Please refresh page</h4>
+                                ? <> <Divider className="font-weight-bold text-center py-4"><h1>Post uploaded succcessfully</h1></Divider>
                                 </> 
                             :
                                 <Form onSubmit={handleSubmit}>
@@ -71,7 +72,7 @@ export const AddPost = () => {
                                         <Form.Label htmlFor="floatingInputCustom">Group</Form.Label>
                                     </Form.Floating>
                                     <Form.Group id="file">
-                                        <Form.Control type="file" onChange={e=>setPost(e.target.files[0])} style={{marginTop: "1rem"}}/>
+                                        <Form.Control type="file" accept=".png, .jpg, .jpeg, .gif, .heic" onChange={e=>setPost(e.target.files[0])} style={{marginTop: "1rem"}}/>
                                     </Form.Group>
                                     <FloatingLabel controlId="floatingSelect" label="Set Post Visibility" style={{marginTop: "1rem"}}>
                                         <Form.Select aria-label="Floating label select example">
