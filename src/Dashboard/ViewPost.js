@@ -15,7 +15,6 @@ const ViewPost = () => {
     const [error,setError] = useState("");
     const dispatch = useDispatch();
     const histroy = useNavigate();
-    console.log(postId)
     const { currentUser } = getAuth();
 
     const {isLoading,post} = useSelector((state) => ({
@@ -30,7 +29,6 @@ const ViewPost = () => {
     }, [isLoading,dispatch]);
 
     const currentPost = !isLoading && post.length > 0 && post.find((pst) =>pst.id === postId);
-    console.log(currentPost)
 
     function handleSubmit(e){
         e.preventDefault();
@@ -57,7 +55,6 @@ const ViewPost = () => {
 
     function deleteComment(e, index, id, comments){
         e.preventDefault();
-        console.log(index+ ' ' + id + ' ' + comments)
         dispatch(undoComment(index,id,comments))
     }
     return (

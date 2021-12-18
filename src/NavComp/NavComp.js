@@ -25,9 +25,9 @@ export const NavComp = () => {
                 <Container>
                 {   
                     currentUser ?
-                        <Navbar.Brand href="/admin/profile">Hello, {currentUser.providerData[0].displayName}</Navbar.Brand>
+                        <Navbar.Brand href="../../">Hello, {currentUser.providerData[0].displayName}</Navbar.Brand>
                     :
-                        <Navbar.Brand href="/">Home</Navbar.Brand>
+                        <Navbar.Brand href="/">Dashboard</Navbar.Brand>
                 }
                 <Nav className="me-auto">
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -35,16 +35,9 @@ export const NavComp = () => {
                     { 
                         currentUser ?
                         <>
-                            <Nav.Item style={{marginLeft:"15px"}}>
-                                <Nav.Link href="/">Dashboard</Nav.Link>
-                            </Nav.Item>
                             <NavDropdown title="Posts"  style={{marginLeft:"15px"}}>
                                 <NavDropdown.Item href="/admin/addpost">Add</NavDropdown.Item>
                                 <NavDropdown.Item href="/admin/managepost">Manage</NavDropdown.Item>
-                            </NavDropdown>
-                            <NavDropdown title="Groups"  style={{marginLeft:"15px"}}>
-                                <NavDropdown.Item href="/admin/creategroup">Create</NavDropdown.Item>
-                                <NavDropdown.Item href="/admin/managegroup">Manage</NavDropdown.Item>
                             </NavDropdown>
                             <Nav.Item  style={{marginLeft:"15px"}}>
                                 <Nav.Link href="/admin/register">Register</Nav.Link>
