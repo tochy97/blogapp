@@ -7,6 +7,7 @@ import { doComment, fetchPost } from '../redux/actionCreators/postActionCreators
 import { getAuth } from "firebase/auth";
 import { Link } from 'react-router-dom';
 import { Divider } from '@mui/material';
+import { undoComment } from '../redux/actionCreators/postActionCreators';
 
 const ViewPost = () => {
     const {postId} = useParams();
@@ -29,6 +30,7 @@ const ViewPost = () => {
     }, [isLoading,dispatch]);
 
     const currentPost = !isLoading && post.length > 0 && post.find((pst) =>pst.id === postId);
+    console.log(currentPost)
 
     function handleSubmit(e){
         e.preventDefault();
@@ -51,7 +53,12 @@ const ViewPost = () => {
         {
             return setError("You are not logged in");
         }
+    }
 
+    function deleteComment(e, index, id, comments){
+        e.preventDefault();
+        console.log(index+ ' ' + id + ' ' + comments)
+        dispatch(undoComment(index,id,comments))
     }
     return (
         <>
@@ -69,35 +76,57 @@ const ViewPost = () => {
                                 <Card.Title>Title: {currentPost.data.title}</Card.Title>
                                 <Card.Subtitle  style={{ marginBottom: "5px",}} >Description: {currentPost.data.desc}</Card.Subtitle>
                                 <Card.Subtitle>Group: {currentPost.data.group}</Card.Subtitle>
-                                <Card className="p-3 mt-2"> 
-                                    {
-                                        currentPost.data.comments.length < 1
-                                            ?   <Card className="p-2 mt-2">
-                                                    <Divider className="text-center">No Comments Found</Divider>
-                                                </Card>
-                                        :
-                                            currentPost.data.comments.map((comment,index)=>(
-                                                <Card className="p-3 mt-2" key={index}>
-                                                    <Card.Title style={{ marginBottom: "5px",}} >{comment.comment}</Card.Title>
-                                                    <Card.Text>From: {comment.author} </Card.Text>
-                                                </Card>
-                                            ))
-                                    }
                                     {
                                         currentUser
-                                            ?    <Form className='mt-2' onSubmit={handleSubmit}>
-                                                    {error && <Alert variant="danger">{error}</Alert>}
-                                                    <Form.Group id="comment">
-                                                        <textarea className="form-control mb-2" value={comment} onChange={e=>setComment(e.target.value)} style={{height: "105px", marginTop: "1rem"}} placeholder="Leave a comment..."/>
-                                                    </Form.Group>
-                                                    <Button className="w-100 mt-3" variant="dark" type="submit">Post Comment</Button>
-                                                </Form>
+                                            ?   
+                                                <>
+                                                {
+                                                    currentPost.data.comments.length < 1
+                                                        ?   <Card className="p-2 mt-2">
+                                                                <Divider className="text-center">No Comments Found</Divider>
+                                                            </Card>
+                                                    :
+                                                        currentPost.data.comments.map((comment,index)=>(
+                                                            <Card className="p-3 mt-2" key={index}>
+                                                                <Card.Title style={{ marginBottom: "5px",}} >From: {comment.author}</Card.Title>
+                                                                <Card.Text>{comment.comment} </Card.Text>
+                                                                { comment.createdBy === currentUser.uid || currentPost.data.createdBy === currentUser.uid
+                                                                    ?
+                                                                        <Button style={{width:"auto", alignSelf:"center", borderColor:"red", backgroundColor:"white", color:"red"}} onClick={e => {deleteComment(e, index,currentPost.id,currentPost.data.comments)}}>Delete</Button>
+                                                                    :
+                                                                        <></>
+                                                                }
+                                                            </Card>
+                                                        ))
+                                                }
+                                                    <Form className='mt-2' onSubmit={handleSubmit}>
+                                                        {error && <Alert variant="danger">{error}</Alert>}
+                                                        <Form.Group id="comment">
+                                                            <textarea className="form-control mb-2" value={comment} onChange={e=>{setComment(e.target.value)}} style={{height: "105px", marginTop: "1rem"}} placeholder="Leave a comment..."/>
+                                                        </Form.Group>
+                                                        <Button className="w-100 mt-3" variant="dark" type="submit">Post Comment</Button>
+                                                    </Form>
+                                                </>
                                             :
-                                                <Link to="../../login">
-                                                    <Button className="w-100 mt-3" variant="dark" type="submit">Login to comment</Button>
-                                                </Link>
+                                                <>
+                                                {
+                                                    currentPost.data.comments.length < 1
+                                                        ?   <Card className="p-2 mt-2">
+                                                                <Divider className="text-center">No Comments Found</Divider>
+                                                            </Card>
+                                                    :
+                                                        currentPost.data.comments.map((comment,index)=>(
+                                                            <Card className="p-3 mt-2" key={index}>
+                                                                <Card.Title style={{ marginBottom: "5px",}} >{comment.comment}</Card.Title>
+                                                                <Card.Text>From: {comment.author} </Card.Text>
+                                                            </Card>
+                                                        ))
+                                                }
+                                                    <Link to="../../login">
+                                                        <Button className="w-100 mt-3" variant="dark" type="submit">Login to comment</Button>
+                                                    </Link>
+                                                </>
                                     }
-                                </Card>
                             </Card.Body>
                         </Card>
                     </Row>

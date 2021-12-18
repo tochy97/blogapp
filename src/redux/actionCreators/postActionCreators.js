@@ -31,6 +31,11 @@ const addComment = data =>({
     payload:data,
 })
 
+const deleteComment = data =>({
+    type:types.DELETE_COMMENT,
+    payload:data,
+})
+
 export const doPost = (data, post, setProgress) =>dispatch=>{
     store.collection("post").add(data).then(async res=>{
         const document = await res.get();
@@ -61,7 +66,6 @@ export const doPost = (data, post, setProgress) =>dispatch=>{
     .catch(err=>{
         console.log(err);
     })
-    //dispatch(setLoading(false));
 }   
 
 export const fetchPost =() =>dispatch=>{
@@ -88,7 +92,21 @@ export const doComment = (comment,postId,prev)=>(dispatch)=>{
         comments:old,
     })
     .then(()=>{
-        dispatch(addComment({ postId, data:comment }));
+        dispatch(addComment({ postId, data:old }));
+    })
+    .catch((err) =>{
+        console.log(err);
+    })
+}
+
+export const undoComment = (index,postId,prev)=>(dispatch)=>{
+    const old = prev.filter((cmt,id)=> id !== index);
+    console.log(old)
+    store.collection("post").doc(postId).update({
+        comments:old,
+    })
+    .then(()=>{
+        dispatch(deleteComment({ postId, index }));
     })
     .catch((err) =>{
         console.log(err);

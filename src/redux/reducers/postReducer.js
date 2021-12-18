@@ -1,4 +1,4 @@
-import { SET_LOADING, ADD_POST, SET_POST, RESET_POST, ADD_COMMENT, DELETE_POST } from "../types/postTypes";
+import { SET_LOADING, ADD_POST, SET_POST, RESET_POST, DELETE_POST, ADD_COMMENT, DELETE_COMMENT } from "../types/postTypes";
 
 const initialState = {
     isLoading: true,
@@ -32,6 +32,13 @@ const postReducer = (state=initialState, {type, payload})=>{
             return state;
         case ADD_COMMENT:
             state={ ...state, posts:state.posts.map(pst=>pst.id === payload.postId? pst.data.comments.push(payload.data) : pst),
+            };  
+            return state;
+        case DELETE_COMMENT:
+            const currentPost = state.posts.find(pst=>pst.id === payload.postId)
+            const comments = currentPost.data.comments.filter((cmt, index)=> index !== payload.index)
+            currentPost.data.comments = comments
+            state={ ...state, posts:state.posts.map(pst=>pst.id === payload.postId? currentPost : pst),
             };  
             return state;
         default:
