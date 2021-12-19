@@ -86,6 +86,7 @@ export const doComment = (comment,postId,prev)=>(dispatch)=>{
         comments:old,
     })
     .then(()=>{
+        console.log(old)
         dispatch(addComment({ postId, data:old }));
     })
     .catch((err) =>{

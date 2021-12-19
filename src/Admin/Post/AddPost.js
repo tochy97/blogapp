@@ -8,11 +8,11 @@ import { doPost } from '../../redux/actionCreators/postActionCreators';
 export const AddPost = () => {
     const { currentUser } = getAuth();
     const [title,setTitle] = useState("");
-    const [fileType, setFileType] = useState("");
+    const [postType, setPostType] = useState("txt");
     const [desc,setDesc] = useState("");
     const [group,setGroup] = useState("");
     const [post,setPost] = useState("");
-    const [vis,setVis] = useState("");
+    const [vis,setVis] = useState("true");
     const [progress,setProgress] = useState(0);
     const [error,setError] = useState("");
     const dispatch = useDispatch();
@@ -40,6 +40,7 @@ export const AddPost = () => {
             desc:desc,
             post:"",
             comments:[],
+            postType:postType,
             vis:vis,
         }
         dispatch(doPost(data,post,setProgress))
@@ -71,11 +72,26 @@ export const AddPost = () => {
                                         <Form.Control type="text" value={group} onChange={e=>setGroup(e.target.value)} style={{marginTop: "1rem"}} placeholder="Group"/>
                                         <Form.Label htmlFor="floatingInputCustom">Group</Form.Label>
                                     </Form.Floating>
-                                    <Form.Group id="file">
-                                        <Form.Control type="file" accept=".png, .jpg, .jpeg, .gif, .heic" onChange={e=>setPost(e.target.files[0])} style={{marginTop: "1rem"}}/>
-                                    </Form.Group>
-                                    <FloatingLabel controlId="floatingSelect" label="Set Post Visibility" style={{marginTop: "1rem"}}>
-                                        <Form.Select aria-label="Floating label select example">
+                                    <FloatingLabel controlId="floatingSelect" label="Type" style={{marginTop: "1rem"}}>
+                                        <Form.Select value={postType} onChange={e=>setPostType(e.target.value)} aria-label="Floating label select example">
+                                            <option value="txt">Text</option>
+                                            <option value="img">Image</option>
+                                        </Form.Select>
+                                    </FloatingLabel>
+                                    {
+                                        postType === "img"
+                                            ?
+                                                <Form.Group id="post">
+                                                    <Form.Control type="file" accept=".png, .jpg, .jpeg, .gif, .heic" onChange={e=>setPost(e.target.files[0])} style={{marginTop: "1rem"}}/>
+                                                </Form.Group>
+                                            :
+                                                <Form.Floating id="post">
+                                                    <textarea className="form-control" value={desc} onChange={e=>setPost(e.target.value)} style={{height: "105px", marginTop: "1rem"}} placeholder="Whats on your mind...?"/>
+                                                    <Form.Label htmlFor="floatingInputCustom">Whats on your mind...?</Form.Label>
+                                                </Form.Floating>
+                                    }
+                                    <FloatingLabel controlId="floatingSelect" label="Visibility" style={{marginTop: "1rem"}}>
+                                        <Form.Select value={postType} onChange={e=>setVis(e.target.value)} aria-label="Floating label select example">
                                             <option value="true">Public</option>
                                             <option value="false">Private</option>
                                             <option value="false">Group</option>

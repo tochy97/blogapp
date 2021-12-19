@@ -31,7 +31,9 @@ const postReducer = (state=initialState, {type, payload})=>{
             }
             return state;
         case ADD_COMMENT:
-            state={ ...state, posts:state.posts.map(pst=>pst.id === payload.postId? pst.data.comments.push(payload.data) : pst),
+            const currPost = state.posts.find(pst=>pst.id === payload.postId)
+            currPost.data.comments = payload.data
+            state={ ...state, posts:state.posts.map(pst=>pst.id === payload.postId? currPost : pst),
             };  
             return state;
         case DELETE_COMMENT:

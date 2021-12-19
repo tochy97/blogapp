@@ -10,7 +10,7 @@ import { Divider } from '@mui/material';
 import { undoComment } from '../redux/actionCreators/postActionCreators';
 
 const ViewPost = () => {
-    const {postId} = useParams();
+    const postId = window.location.pathname.split("/")[2];
     const [comment,setComment] = useState("");
     const [error,setError] = useState("");
     const dispatch = useDispatch();
@@ -27,7 +27,7 @@ const ViewPost = () => {
         dispatch(fetchPost());
       }
     }, [isLoading,dispatch]);
-
+    console.log(postId)
     const currentPost = !isLoading && post.length > 0 && post.find((pst) =>pst.id === postId);
 
     function handleSubmit(e){

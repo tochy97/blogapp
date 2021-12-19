@@ -42,7 +42,13 @@ export const ManagePost = () => {
                     :
                         myPosts.map((pst, index) =>(
                             <Card className="col-md-5 mx-aut px-0" key={index}>
-                                <Card.Img src={pst.data.post} alt={pst.data.title}/>
+                                { 
+                                    pst.data.postType === "img"
+                                        ?
+                                            <Card.Img src={pst.data.post} alt={pst.data.title}/>
+                                        :
+                                            <Card.Text style={{padding:"13rem"}}>{pst.data.post}</Card.Text>
+                                }
                                 <Card.Body>
                                     <Card.Title>Title: {pst.data.title}</Card.Title>
                                     <Card.Subtitle  style={{ marginBottom: "5px",}} >Description: {pst.data.desc}</Card.Subtitle>
