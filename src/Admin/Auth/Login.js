@@ -40,7 +40,7 @@ export const Login = () => {
     }, []);
 
     return (
-        <Card className="py-4" style={{border:0, height:"70vh"}}>
+        <Card className="py-4" style={{border:0}}>
             <Row className="px-5 my-6 gap-5">
                 <Divider className="font-weight-bold text-center py-4"><h1>Login</h1></Divider>
                 {error && <Alert variant="danger">{error}</Alert>}

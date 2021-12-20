@@ -27,7 +27,7 @@ const ViewPost = () => {
         dispatch(fetchPost());
       }
     }, [isLoading,dispatch]);
-    console.log(postId)
+
     const currentPost = !isLoading && post.length > 0 && post.find((pst) =>pst.id === postId);
 
     function handleSubmit(e){
@@ -57,6 +57,7 @@ const ViewPost = () => {
         e.preventDefault();
         dispatch(undoComment(index,id,comments))
     }
+    
     return (
         <>
         { 
@@ -67,8 +68,14 @@ const ViewPost = () => {
             :
                 <Container>
                     <Row>
-                        <Card className="mb-2 mt-2">
-                            <Card.Img style={{padding: "15px",}} src={currentPost.data.post} alt={currentPost.data.title} />
+                        <Card className="mb-2 mt-2 p-2">
+                            { 
+                                currentPost.data.postType === "img"
+                                    ?
+                                        <Card.Img src={currentPost.data.post} alt={currentPost.data.title}/>
+                                    :
+                                        <Card.Text style={{padding:"5rem"}}>{currentPost.data.post}</Card.Text>
+                            }
                             <Card.Body>
                                 <Card.Title>Title: {currentPost.data.title}</Card.Title>
                                 <Card.Subtitle  style={{ marginBottom: "5px",}} >Description: {currentPost.data.desc}</Card.Subtitle>

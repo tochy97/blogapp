@@ -4,6 +4,7 @@ import { shallowEqual, useSelector, useDispatch } from 'react-redux';
 import {useNavigate} from "react-router-dom"
 import { Divider } from '@mui/material';
 import { fetchPost } from '../redux/actionCreators/postActionCreators';
+import { checkUser } from '../redux/actionCreators/authActionCreators';
 
 export const Dashboard = () => {
     const {isLoading, post, userID} = useSelector(
@@ -19,6 +20,11 @@ export const Dashboard = () => {
             dispatch(fetchPost());
         }
     }, [isLoading,dispatch]);
+    useEffect(() => {
+        if(!userID){
+            dispatch(checkUser());
+        }
+    }, [userID,dispatch]);
 
     const myPosts = post;
     const histroy = useNavigate();
@@ -40,24 +46,19 @@ export const Dashboard = () => {
                     :
                         myPosts.map((pst, index) =>(
                             <Card className="col-md-5 mx-aut px-0" key={index}>
+                            <Card.Header style={{padding:"2rem"}}>Title: {pst.data.title} <br/> Description: {pst.data.desc } <br/> By: {pst.data.author}</Card.Header>
+                                <Card.Body>
                                 { 
                                     pst.data.postType === "img"
                                         ?
                                             <Card.Img src={pst.data.post} alt={pst.data.title}/>
                                         :
-                                            <Card.Text style={{padding:"13rem"}}>{pst.data.post}</Card.Text>
+                                            <Card.Text style={{padding:"5rem"}}>{pst.data.post}</Card.Text>
                                 }
-                                <Card.Body>
-                                    <Card.Title>Title: {pst.data.title}</Card.Title>
-                                    <Card.Subtitle  style={{ marginBottom: "5px",}} >Description: {pst.data.desc}</Card.Subtitle>
-                                    <Card.Subtitle>Group: {pst.data.group}</Card.Subtitle>
-                                    <Card.Footer className="bg-white mt-2">
-                                        <div className="d-flex w-100 px-5 py-2 align-items-center">
-                                        <p className="py-1 px-2">By: {pst.data.author}</p>
-                                        </div>
-                                        <Button variant="dark" onClick={()=>histroy(`../post/${pst.id}`, {replace:true})} className="form-control mb-0">See Post</Button>
-                                    </Card.Footer>
                                 </Card.Body>
+                                    <Card.Footer style={{padding:"1rem", bottom:0, position:"absolute", width:"100%"}} className="bg-white mt-2">
+                                        <Button variant="dark"  onClick={()=>histroy(`../../post/${pst.id}`, {replace:true})} className="form-control mb-0">See Post</Button>
+                                    </Card.Footer>
                             </Card>
                         ))
                 }

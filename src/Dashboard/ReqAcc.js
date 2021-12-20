@@ -33,7 +33,7 @@ const ReqAcc = () => {
         dispatch(setRequest(req, email, realname));
     }
     return (
-        <Card className="py-4 align-center" style={{border:0, height:"70vh"}}>
+        <Card className="py-4 align-center" style={{border:0}}>
             <Row className="px-5 my-6 gap-5">
         { 
             isReq ?

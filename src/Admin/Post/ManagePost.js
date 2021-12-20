@@ -42,25 +42,20 @@ export const ManagePost = () => {
                     :
                         myPosts.map((pst, index) =>(
                             <Card className="col-md-5 mx-aut px-0" key={index}>
+                            <Card.Header style={{padding:"2rem"}}>Title: {pst.data.title} <br/> Description: {pst.data.desc } <br/> By: {pst.data.author}</Card.Header>
+                                <Card.Body>
                                 { 
                                     pst.data.postType === "img"
                                         ?
                                             <Card.Img src={pst.data.post} alt={pst.data.title}/>
                                         :
-                                            <Card.Text style={{padding:"13rem"}}>{pst.data.post}</Card.Text>
+                                            <Card.Text style={{padding:"5rem"}}>{pst.data.post}</Card.Text>
                                 }
-                                <Card.Body>
-                                    <Card.Title>Title: {pst.data.title}</Card.Title>
-                                    <Card.Subtitle  style={{ marginBottom: "5px",}} >Description: {pst.data.desc}</Card.Subtitle>
-                                    <Card.Subtitle>Group: {pst.data.group}</Card.Subtitle>
-                                    <Card.Footer className="bg-white mt-2">
-                                        <div className="d-flex w-100 px-5 py-2 align-items-center">
-                                        <p>By: {pst.data.author} </p>
-                                        </div>
+                                </Card.Body>
+                                    <Card.Footer style={{padding:"1rem", bottom:0, position:"absolute", width:"100%"}} className="bg-white mt-2">
                                         <Button variant="dark"  onClick={()=>histroy(`../../post/${pst.id}`, {replace:true})} className="form-control mb-0">See Post</Button>
                                         <Button variant="danger" onClick={()=>[dispatch(removePost(pst.id,pst.data.post)), histroy("../dashboard", {replace:true})]} className="form-control my-1 mb-0">Delete Post</Button>
                                     </Card.Footer>
-                                </Card.Body>
                             </Card>
                         ))
                 }

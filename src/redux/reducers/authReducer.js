@@ -1,4 +1,4 @@
-import { SET_USER, RESET_USER, SET_REQ } from "../types/authTypes";
+import { SET_USER, RESET_USER, SET_REQ, GET_USER } from "../types/authTypes";
 
 const initialState = {
     isLoggedIn: false,
@@ -10,23 +10,21 @@ const initialState = {
 const authReducer = (state=initialState, {type, payload})=>{
     switch(type){
         case SET_USER:
-            state={
+            state={ ...state,
                 isLoggedIn:true,
                 user:payload.user,
                 user_id:payload.id,
-                req: true
             }
             return state;
         case SET_REQ:
-            state={
-                isLoggedIn:false,
-                user:null,
-                user_id:null,
+            state={ ...state,
                 req: true
             }
             return state;
         case RESET_USER:
             state=initialState;
+            return state;
+        case GET_USER:
             return state;
         default:
             return state;

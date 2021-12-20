@@ -12,11 +12,17 @@ const setReq = ()=>({
 const resetUser = ()=>({
     type:types.RESET_USER,
 })
+const getUser = ()=>({
+    type:types.GET_USER,
+})
 export const loginUser = (data) => dispatch=>{
     dispatch(setUser(data));
 }
 export const logoutUser = () => dispatch=>{
     dispatch(resetUser());
+}
+export const checkUser = () => dispatch=>{
+    dispatch(getUser());
 }
 export const checkRequest = (email) => dispatch=>{
     store.collection("mail").get().then(mail=>{
