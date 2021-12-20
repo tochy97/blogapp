@@ -41,9 +41,9 @@ export const ManagePost = () => {
                             </Card>
                     :
                         myPosts.map((pst, index) =>(
-                            <Card className="col-md-5 mx-aut px-0" key={index}>
+                            <Card className="col-md-5 mx-auto px-0" key={index}>
                             <Card.Header style={{padding:"2rem"}}>Title: {pst.data.title} <br/> Description: {pst.data.desc } <br/> By: {pst.data.author}</Card.Header>
-                                <Card.Body>
+                                <Card.Body className='mb-5'>
                                 { 
                                     pst.data.postType === "img"
                                         ?
