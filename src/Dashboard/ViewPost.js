@@ -1,8 +1,6 @@
 import React, {useEffect, useState} from 'react';
-import { useParams } from 'react-router'
-import { NavLink, useNavigate } from 'react-router-dom'
 import { useDispatch,useSelector,shallowEqual } from 'react-redux'
-import { Container, Row, Col, Card, Form, Button, Alert } from 'react-bootstrap';
+import { Container, Row, Card, Form, Button, Alert } from 'react-bootstrap';
 import { doComment, fetchPost } from '../redux/actionCreators/postActionCreators';
 import { getAuth } from "firebase/auth";
 import { Link } from 'react-router-dom';
@@ -14,7 +12,6 @@ const ViewPost = () => {
     const [comment,setComment] = useState("");
     const [error,setError] = useState("");
     const dispatch = useDispatch();
-    const histroy = useNavigate();
     const { currentUser } = getAuth();
 
     const {isLoading,post} = useSelector((state) => ({
@@ -63,7 +60,7 @@ const ViewPost = () => {
         { 
             isLoading 
                 ? <Divider><h1>Loading...</h1></Divider> 
-            : post.length < 1 || !isLoading && !currentPost
+            :  (post.length < 1 || !isLoading) && !currentPost
                 ? <Divider><h1>No Post Found</h1></Divider>
             :
                 <Container>

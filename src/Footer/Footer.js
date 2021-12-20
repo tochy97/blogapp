@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { Card, Col, Container, Row } from 'react-bootstrap';
+import { Col, Container, Row } from 'react-bootstrap';
 import instagram from './imgs/instagram.png';
 import linkedin from './imgs/linkedin.png';
 import facebook from './imgs/facebook.png';
@@ -19,18 +19,18 @@ const Footer = () => {
                     <p><NavLink to="/req" style={{color:"black", textDecoration:0}}>Contact Me</NavLink></p>
                 </Col>
                 <Col className="flex items-center">
-                                    <a aria-label="Instagram"  href="https://www.instagram.com/tokyo_hippie/">
-                                            <img style={{width:"2rem", margin:"2rem"}} src= {instagram} alt = ""/>
-                                    </a>
-                                    <a aria-label="Youtube"  href="https://www.youtube.com/channel/UCzoJQ8_IB-ELiaxY2W9OQGA">
-                                            <img style={{width:"2rem", margin:"2rem"}} src= {linkedin} alt = ""/>
-                                    </a>
-                                    <a aria-label="Facebook"  href="https://www.instagram.com/tokyo_hippie/">
-                                            <img style={{width:"2rem", margin:"2rem"}} src= {facebook} alt = ""/>
-                                    </a>
-                                    <a aria-label="Twitch"  href="https://www.instagram.com/tokyo_hippie/">
-                                            <img style={{width:"2rem", margin:"2rem"}} src= {github} alt = ""/>
-                                    </a>
+                    <a aria-label="Instagram"  href="https://www.instagram.com/chy.toe/">
+                        <img style={{width:"2rem", margin:"2rem"}} src= {instagram} alt = "instagram"/>
+                    </a>
+                    <a aria-label="Linkedin"  href="https://www.linkedin.com/in/tochukwu-egeonu-79935a127/">
+                        <img style={{width:"2rem", margin:"2rem"}} src= {linkedin} alt = "linkedin"/>
+                    </a>
+                    <a aria-label="Facebook"  href="https://www.facebook.com/tochy.egeonu/">
+                        <img style={{width:"2rem", margin:"2rem"}} src= {facebook} alt = "facebook"/>
+                    </a>
+                    <a aria-label="Github"  href="https://github.com/tochy97">
+                        <img style={{width:"2rem", margin:"2rem"}} src= {github} alt = "github"/>
+                    </a>
                 </Col>
             </Row>
         </Container>

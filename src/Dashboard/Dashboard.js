@@ -1,5 +1,5 @@
-import React, {useEffect} from 'react';
-import {Card,Row,Col,Button} from "react-bootstrap";
+import React, { useEffect } from 'react';
+import { Card, Row, Button } from "react-bootstrap";
 import { shallowEqual, useSelector, useDispatch } from 'react-redux';
 import {useNavigate} from "react-router-dom"
 import { Divider } from '@mui/material';
@@ -57,7 +57,7 @@ export const Dashboard = () => {
                                 }
                                 </Card.Body>
                                     <Card.Footer style={{padding:"1rem", bottom:0, position:"absolute", width:"100%"}} className="bg-white mt-2">
-                                        <Button variant="dark"  onClick={()=>histroy(`../../post/${pst.id}`, {replace:true})} className="form-control mb-0">See Post</Button>
+                                        <Button variant="dark"  onClick={()=>histroy(`../../post/${pst.id}`, {replace:true})} className="form-control mb-0">View Post</Button>
                                     </Card.Footer>
                             </Card>
                         ))

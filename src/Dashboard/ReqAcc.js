@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { shallowEqual, useSelector, useDispatch } from 'react-redux';
 import {Row, Col, Form, Button, Card, Alert} from "react-bootstrap";
-import {useNavigate} from "react-router-dom";
 import { setRequest, checkRequest } from '../redux/actionCreators/authActionCreators';
 import { Divider } from '@mui/material';
 
@@ -11,9 +10,8 @@ const ReqAcc = () => {
     const [req,setReq] = useState("");
     const [error,setError] = useState("");
     const dispatch = useDispatch();
-    const histroy = useNavigate();
 
-    const {isReq, post, userID} = useSelector(
+    const { isReq } = useSelector(
         (state) =>({
             isReq:state.auth.req, 
         }), shallowEqual);

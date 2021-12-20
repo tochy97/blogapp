@@ -6,7 +6,7 @@ const setLoading = data =>({
     payload:data,
 })
 
-const addPost = data =>({
+export const addPost = data =>({
     type:types.ADD_POST,
     payload:data,
 })
@@ -15,12 +15,6 @@ const getPost = data =>({
     type:types.SET_POST,
     payload:data,
 })
-
-const resetPost = data =>({
-    type:types.RESET_POST,
-    payload:data,
-})
-
 const deletePost = data =>({
     type:types.DELETE_POST,
     payload:data,
@@ -115,4 +109,10 @@ export const removePost = (postId,imgUrl) => (dispatch)=> {
     })
     .catch((err)=>{
     })
+}
+export const removeText = (postId) => (dispatch)=> {
+        store.collection("post").doc(postId).delete()
+        .then(()=>{
+            dispatch(deletePost(postId));
+        })
 }

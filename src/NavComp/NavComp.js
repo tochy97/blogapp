@@ -1,7 +1,7 @@
 import React from 'react'
-import { Navbar, Nav, Button, NavDropdown, Container } from 'react-bootstrap'
+import { Navbar, Nav, NavDropdown, Container } from 'react-bootstrap'
 import { useSelector,useDispatch } from 'react-redux'
-import { NavLink, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { auth } from '../config/firebase'
 import { getAuth } from "firebase/auth";
 import {logoutUser} from "../redux/actionCreators/authActionCreators"   

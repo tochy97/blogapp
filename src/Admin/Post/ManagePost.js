@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import {Card,Row,Col,Button} from "react-bootstrap";
 import { shallowEqual, useSelector, useDispatch } from 'react-redux';
-import { fetchPost, removePost } from '../../redux/actionCreators/postActionCreators';
+import { fetchPost, removePost, removeText } from '../../redux/actionCreators/postActionCreators';
 import {useNavigate} from "react-router-dom"
 import { Divider } from '@mui/material';
 
@@ -53,8 +53,14 @@ export const ManagePost = () => {
                                 }
                                 </Card.Body>
                                     <Card.Footer style={{padding:"1rem", bottom:0, position:"absolute", width:"100%"}} className="bg-white mt-2">
-                                        <Button variant="dark"  onClick={()=>histroy(`../../post/${pst.id}`, {replace:true})} className="form-control mb-0">See Post</Button>
-                                        <Button variant="danger" onClick={()=>[dispatch(removePost(pst.id,pst.data.post)), histroy("../dashboard", {replace:true})]} className="form-control my-1 mb-0">Delete Post</Button>
+                                        <Button variant="dark"  onClick={()=>histroy(`../../post/${pst.id}`, {replace:true})} className="form-control mb-0">View Post</Button>
+                                        {
+                                            pst.data.postType === "img"
+                                                ?
+                                                    <Button variant="danger" onClick={()=>dispatch(removePost(pst.id,pst.data.post))} className="form-control my-1 mb-0">Delete Post</Button>
+                                                :
+                                                    <Button variant="danger" onClick={()=>dispatch(removeText(pst.id,pst.data.post))} className="form-control my-1 mb-0">Delete Post</Button>
+                                        }
                                     </Card.Footer>
                             </Card>
                         ))
