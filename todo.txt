@@ -1,4 +1,2 @@
-Only accept image files.
-Request account should be changed.
-Limit commenting ability.
-
+Add Calender api.
+Add Groups.
