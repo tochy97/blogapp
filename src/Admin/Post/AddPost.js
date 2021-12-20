@@ -107,57 +107,57 @@ export const AddPost = () => {
                 <Col lg={10} className="mx-auto">
                     {
                         progress > 0 && progress < 100
-                            ? 
-                                <> 
-                                    <Divider className="font-weight-bold text-center py-4"><h1>Uploading Post{progress} % </h1></Divider>  <ProgressBar now={progress} max={100}/> 
-                                </> 
-                            : progress === 100 
-                                ? 
-                                    <> 
-                                        <Divider className="font-weight-bold text-center py-4"><h1>Post uploaded succcessfully</h1></Divider>
-                                        <Button variant="dark"  onClick={()=>histroy(`../../post/${postId}`, {replace:true})} className="form-control mb-0">View Post</Button>
-                                    </> 
-                                :
-                                    <Form onSubmit={handleSubmit}>
-                                        <Form.Floating> 
-                                            <Form.Control type="text" value={title} onChange={e=>setTitle(e.target.value)} placeholder="Title"/>
-                                            <Form.Label htmlFor="floatingInputCustom">Title</Form.Label>
+                        ? 
+                            <> 
+                                <Divider className="font-weight-bold text-center py-4"><h1>Uploading Post{progress} % </h1></Divider>  <ProgressBar now={progress} max={100}/> 
+                            </> 
+                        : progress === 100 
+                        ? 
+                            <> 
+                                <Divider className="font-weight-bold text-center py-4"><h1>Post uploaded succcessfully</h1></Divider>
+                                <Button variant="dark"  onClick={()=>histroy(`../../post/${postId}`, {replace:true})} className="form-control mb-0">View Post</Button>
+                            </> 
+                        :
+                            <Form onSubmit={handleSubmit}>
+                                <Form.Floating> 
+                                    <Form.Control type="text" value={title} onChange={e=>setTitle(e.target.value)} placeholder="Title"/>
+                                    <Form.Label htmlFor="floatingInputCustom">Title</Form.Label>
+                                </Form.Floating>
+                                <Form.Floating id="desc">
+                                    <textarea className="form-control" value={desc} onChange={e=>setDesc(e.target.value)} style={{height: "105px", marginTop: "1rem"}} placeholder="Enter description..."/>
+                                    <Form.Label htmlFor="floatingInputCustom">Description</Form.Label>
+                                </Form.Floating>
+                                <Form.Floating id="group"> 
+                                    <Form.Control type="text" value={group} onChange={e=>setGroup(e.target.value)} style={{marginTop: "1rem"}} placeholder="Group"/>
+                                    <Form.Label htmlFor="floatingInputCustom">Group</Form.Label>
+                                </Form.Floating>
+                                <FloatingLabel controlId="floatingSelect" label="Type" style={{marginTop: "1rem"}}>
+                                    <Form.Select value={postType} onChange={e=>setPostType(e.target.value)} aria-label="Floating label select example">
+                                        <option value="txt">Text</option>
+                                        <option value="img">Image</option>
+                                    </Form.Select>
+                                </FloatingLabel>
+                                {
+                                    postType === "img"
+                                    ?
+                                        <Form.Group id="post">
+                                            <Form.Control type="file" accept=".png, .jpg, .jpeg, .gif, .heic" onChange={e=>setPost(e.target.files[0])} style={{marginTop: "1rem"}}/>
+                                        </Form.Group>
+                                    :
+                                        <Form.Floating id="post">
+                                            <textarea className="form-control" value={post} onChange={e=>setPost(e.target.value)} style={{height: "105px", marginTop: "1rem"}}placeholder="Whats on your mind...?"/>
+                                            <Form.Label htmlFor="floatingInputCustom">Whats on your mind...?</Form.Label>
                                         </Form.Floating>
-                                        <Form.Floating id="desc">
-                                            <textarea className="form-control" value={desc} onChange={e=>setDesc(e.target.value)} style={{height: "105px", marginTop: "1rem"}} placeholder="Enter description..."/>
-                                            <Form.Label htmlFor="floatingInputCustom">Description</Form.Label>
-                                        </Form.Floating>
-                                        <Form.Floating id="group"> 
-                                            <Form.Control type="text" value={group} onChange={e=>setGroup(e.target.value)} style={{marginTop: "1rem"}} placeholder="Group"/>
-                                            <Form.Label htmlFor="floatingInputCustom">Group</Form.Label>
-                                        </Form.Floating>
-                                        <FloatingLabel controlId="floatingSelect" label="Type" style={{marginTop: "1rem"}}>
-                                            <Form.Select value={postType} onChange={e=>setPostType(e.target.value)} aria-label="Floating label select example">
-                                                <option value="txt">Text</option>
-                                                <option value="img">Image</option>
-                                            </Form.Select>
-                                        </FloatingLabel>
-                                        {
-                                            postType === "img"
-                                                ?
-                                                    <Form.Group id="post">
-                                                        <Form.Control type="file" accept=".png, .jpg, .jpeg, .gif, .heic" onChange={e=>setPost(e.target.files[0])} style={{marginTop: "1rem"}}/>
-                                                    </Form.Group>
-                                                :
-                                                    <Form.Floating id="post">
-                                                        <textarea className="form-control" value={post} onChange={e=>setPost(e.target.value)} style={{height: "105px", marginTop: "1rem"}} placeholder="Whats on your mind...?"/>
-                                                        <Form.Label htmlFor="floatingInputCustom">Whats on your mind...?</Form.Label>
-                                                    </Form.Floating>
-                                        }
-                                        <FloatingLabel controlId="floatingSelect" label="Visibility" style={{marginTop: "1rem"}}>
-                                            <Form.Select value={postType} onChange={e=>setVis(e.target.value)} aria-label="Floating label select example">
-                                                <option value="true">Public</option>
-                                                <option value="false">Private</option>
-                                                <option value="false">Group</option>
-                                            </Form.Select>
-                                        </FloatingLabel>
-                                        <Button className="w-100 mt-3" variant="dark" type="submit">Upload</Button>
-                                    </Form>
+                                }
+                                <FloatingLabel controlId="floatingSelect" label="Visibility" style={{marginTop: "1rem"}}>
+                                    <Form.Select value={postType} onChange={e=>setVis(e.target.value)} aria-label="Floating label select example">
+                                        <option value="true">Public</option>
+                                        <option value="false">Private</option>
+                                        <option value="false">Group</option>
+                                    </Form.Select>
+                                </FloatingLabel>
+                                <Button className="w-100 mt-3" variant="dark" type="submit">Upload</Button>
+                            </Form>
                     }
                 </Col>
             </Row>

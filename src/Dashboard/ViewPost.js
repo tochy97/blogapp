@@ -68,66 +68,68 @@ const ViewPost = () => {
                         <Card className="mb-2 mt-2 p-2">
                             { 
                                 currentPost.data.postType === "img"
-                                    ?
-                                        <Card.Img src={currentPost.data.post} alt={currentPost.data.title}/>
-                                    :
-                                        <Card.Text style={{padding:"5rem"}}>{currentPost.data.post}</Card.Text>
+                                ?
+                                    <Card.Img src={currentPost.data.post} alt={currentPost.data.title}/>
+                                :
+                                    <Card.Text style={{padding:"5rem"}}>{currentPost.data.post}</Card.Text>
                             }
                             <Card.Body>
                                 <Card.Title>Title: {currentPost.data.title}</Card.Title>
                                 <Card.Subtitle  style={{ marginBottom: "5px",}} >Description: {currentPost.data.desc}</Card.Subtitle>
                                 <Card.Subtitle>Group: {currentPost.data.group}</Card.Subtitle>
-                                    {
-                                        currentUser
-                                            ?   
-                                                <>
-                                                {
-                                                    currentPost.data.comments.length < 1
-                                                        ?   <Card className="p-2 mt-2">
-                                                                <Divider className="text-center">No Comments Found</Divider>
-                                                            </Card>
-                                                    :
-                                                        currentPost.data.comments.map((comment,index)=>(
-                                                            <Card className="p-3 mt-2" key={index}>
-                                                                <Card.Title style={{ marginBottom: "5px",}} >From: {comment.author}</Card.Title>
-                                                                <Card.Text>{comment.comment} </Card.Text>
-                                                                { comment.createdBy === currentUser.uid || currentPost.data.createdBy === currentUser.uid
-                                                                    ?
-                                                                        <Button style={{width:"auto", alignSelf:"center", borderColor:"red", backgroundColor:"white", color:"red"}} onClick={e => {deleteComment(e, index,currentPost.id,currentPost.data.comments)}}>Delete</Button>
-                                                                    :
-                                                                        <></>
-                                                                }
-                                                            </Card>
-                                                        ))
-                                                }
-                                                    <Form className='mt-2' onSubmit={handleSubmit}>
-                                                        {error && <Alert variant="danger">{error}</Alert>}
-                                                        <Form.Group id="comment">
-                                                            <textarea className="form-control mb-2" value={comment} onChange={e=>{setComment(e.target.value)}} style={{height: "105px", marginTop: "1rem"}} placeholder="Leave a comment..."/>
-                                                        </Form.Group>
-                                                        <Button className="w-100 mt-3" variant="dark" type="submit">Post Comment</Button>
-                                                    </Form>
-                                                </>
+                                {
+                                    currentUser
+                                    ?   
+                                    <>
+                                        {
+                                            currentPost.data.comments.length < 1
+                                            ?   <Card className="p-2 mt-2">
+                                                    <Divider className="text-center">No Comments Found</Divider>
+                                                </Card>
                                             :
-                                                <>
-                                                {
-                                                    currentPost.data.comments.length < 1
-                                                        ?   <Card className="p-2 mt-2">
-                                                                <Divider className="text-center">No Comments Found</Divider>
-                                                            </Card>
-                                                    :
-                                                        currentPost.data.comments.map((comment,index)=>(
-                                                            <Card className="p-3 mt-2" key={index}>
-                                                                <Card.Title style={{ marginBottom: "5px",}} >{comment.comment}</Card.Title>
-                                                                <Card.Text>From: {comment.author} </Card.Text>
-                                                            </Card>
-                                                        ))
-                                                }
-                                                    <Link to="../../login">
-                                                        <Button className="w-100 mt-3" variant="dark" type="submit">Login to comment</Button>
-                                                    </Link>
-                                                </>
-                                    }
+                                            currentPost.data.comments.map((comment,index)=>(
+                                                <Card className="p-3 mt-2" key={index}>
+                                                    <Card.Title style={{ marginBottom: "5px",}} >From: {comment.author}</Card.Title>
+                                                    <Card.Text>{comment.comment} </Card.Text>
+                                                    {
+                                                        comment.createdBy === currentUser.uid || currentPost.data.createdBy === currentUser.uid
+                                                        ?
+                                                            <Button style={{width:"auto", alignSelf:"center", borderColor:"red", backgroundColor:"white", color:"red"}} onClick={e => {deleteComment(e, index,currentPost.id,currentPost.data.comments)}}>Delete</Button>
+                                                        :
+                                                            <></>
+                                                    }
+                                                </Card>
+                                            ))
+                                        }
+                                        <Form className='mt-2' onSubmit={handleSubmit}>
+                                            {error && <Alert variant="danger">{error}</Alert>}
+                                            <Form.Group id="comment">
+                                                <textarea className="form-control mb-2" value={comment} onChange={e=>{setComment(e.target.value)}} style={{height: "105px", marginTop: "1rem"}} placeholder="Leave a comment..."/>
+                                            </Form.Group>
+                                            <Button className="w-100 mt-3" variant="dark" type="submit">Post Comment</Button>
+                                        </Form>
+                                    </>
+                                    :
+                                    <>
+                                        {
+                                            currentPost.data.comments.length < 1
+                                            ?   
+                                                <Card className="p-2 mt-2">
+                                                    <Divider className="text-center">No Comments Found</Divider>
+                                                </Card>
+                                            :
+                                                currentPost.data.comments.map((comment,index)=>(
+                                                    <Card className="p-3 mt-2" key={index}>
+                                                        <Card.Title style={{ marginBottom: "5px",}} >{comment.comment}</Card.Title>
+                                                        <Card.Text>From: {comment.author} </Card.Text>
+                                                    </Card>
+                                                ))
+                                        }
+                                        <Link to="../../login">
+                                            <Button className="w-100 mt-3" variant="dark" type="submit">Login to comment</Button>
+                                        </Link>
+                                    </>
+                                }
                             </Card.Body>
                         </Card>
                     </Row>

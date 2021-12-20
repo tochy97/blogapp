@@ -10,11 +10,10 @@ import Success from '../Dashboard/Success'
 import Profile from './Profile/Profile';
 import Dashboard from "../Dashboard/Dashboard";
 import { auth } from '../config/firebase'
-import { loginUser } from '../redux/actionCreators/authActionCreators'
-import { useSelector, useDispatch } from 'react-redux';
+import { loginUser } from '../redux/actionCreators/authActionCreators';
+import { useDispatch } from 'react-redux';
   
 const Admin = () => {
-    const isLoggedIn = useSelector(state=>state.auth.isLoggedIn);
     const dispatch = useDispatch();
     const histroy = useNavigate();
 
@@ -30,7 +29,7 @@ const Admin = () => {
             }
             dispatch(loginUser(data));
         })
-    }, []);
+    }, [dispatch]);
     return (
         <>
         <Routes>

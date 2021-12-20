@@ -5,8 +5,6 @@ import {useNavigate} from "react-router-dom"
 import {auth} from "../../config/firebase"
 import { Divider } from '@mui/material';
 import {loginUser, logoutUser} from "../../redux/actionCreators/authActionCreators";
-import { getAuth } from "firebase/auth";
-
 
 export const Login = () => {
     const [email,setEmail] = useState("");
@@ -14,7 +12,6 @@ export const Login = () => {
     const [error,setError] = useState("");
     const dispatch = useDispatch();
     const histroy = useNavigate();
-    const { currentUser } = getAuth();
 
     function handleSubmit(e){
         e.preventDefault();
@@ -29,7 +26,6 @@ export const Login = () => {
                 histroy("../../", {replace:true});
         })
         .catch(err=>{
-            const text = err.message.split("(");
             setError(err.message.split("(")[0]);
         })
     }
@@ -37,7 +33,7 @@ export const Login = () => {
     useEffect(() => {
         auth.signOut();
         dispatch(logoutUser);
-    }, []);
+    }, [dispatch]);
 
     return (
         <Card className="py-4" style={{border:0}}>

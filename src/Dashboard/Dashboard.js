@@ -33,27 +33,28 @@ export const Dashboard = () => {
         <Card className="py-4" style={{border:0}}>
             <Row className="px-5 my-6 gap-5">
                 { 
+
                     isLoading 
-                        ? 
-                        <Card style={{height:"100vh"}}>
-                            <Divider><h1>Loading...</h1></Divider> 
-                        </Card>
+                    ? 
+                            <Card className="py-4" style={{height:"70vh"}}>
+                                <Divider><h1>Loading...</h1></Divider> 
+                            </Card>
                     : post.length < 1 || myPosts.length < 1 
-                        ?
-                        <Card style={{height:"100vh"}}>
-                             <Divider><h1>No Post Found</h1></Divider>
+                    ? 
+                        <Card className="py-4" style={{height:"70vh"}}>
+                            <Divider><h1>You have no posts</h1></Divider>
                         </Card>
-                    :
+                    : 
                         myPosts.map((pst, index) =>(
-                            <Card className="col-md-5 mx-aut px-0" key={index}>
-                            <Card.Header style={{padding:"2rem"}}>Title: {pst.data.title} <br/> Description: {pst.data.desc } <br/> By: {pst.data.author}</Card.Header>
-                                <Card.Body>
+                            <Card className="col-md-5 mx-auto px-0" key={index}>
+                                <Card.Header style={{padding:"2rem"}}>Title: {pst.data.title} <br/> Description: {pst.data.desc } <br/> By: {pst.data.author}</Card.Header>
+                                <Card.Body className='mb-5'>
                                 { 
                                     pst.data.postType === "img"
-                                        ?
-                                            <Card.Img src={pst.data.post} alt={pst.data.title}/>
-                                        :
-                                            <Card.Text style={{padding:"5rem"}}>{pst.data.post}</Card.Text>
+                                    ?
+                                        <Card.Img src={pst.data.post} alt={pst.data.title}/>
+                                    :
+                                        <Card.Text style={{padding:"5rem"}}>{pst.data.post}</Card.Text>
                                 }
                                 </Card.Body>
                                     <Card.Footer style={{padding:"1rem", bottom:0, position:"absolute", width:"100%"}} className="bg-white mt-2">

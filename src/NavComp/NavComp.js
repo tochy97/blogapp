@@ -1,6 +1,6 @@
 import React from 'react'
 import { Navbar, Nav, NavDropdown, Container } from 'react-bootstrap'
-import { useSelector,useDispatch } from 'react-redux'
+import { useSelector, useDispatch, shallowEqual } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { auth } from '../config/firebase'
 import { getAuth } from "firebase/auth";
@@ -10,7 +10,13 @@ export const NavComp = () => {
     const dispatch = useDispatch();
     const histroy = useNavigate();
     const { currentUser } = getAuth();
-    const isLoading = useSelector(state => state.post.isLoading);
+
+    const {isLoading, user} = useSelector(
+        (state) =>({
+            isLoading:state.post.isLoading, 
+            user:state.auth.user,
+        }), shallowEqual
+    );
 
     const logout=()=>{
         auth.signOut();
@@ -21,11 +27,13 @@ export const NavComp = () => {
 
         <Navbar bg="light" expand="lg" variant="light" style={{padding: "20px",color:"#fff", borderRight:0}} >
             { 
-                !isLoading ?
+                !isLoading 
+                ?
                 <Container>
                 {   
-                    currentUser ?
-                        <Navbar.Brand href="../../">Hello, {currentUser.providerData[0].displayName}</Navbar.Brand>
+                    currentUser 
+                    ?
+                        <Navbar.Brand href="../../">Hello, {user.displayName}</Navbar.Brand>
                     :
                         <Navbar.Brand href="/">Dashboard</Navbar.Brand>
                 }
@@ -33,7 +41,8 @@ export const NavComp = () => {
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                     { 
-                        currentUser ?
+                        currentUser 
+                        ?
                         <>
                             <NavDropdown title="Posts"  style={{marginLeft:"15px"}}>
                                 <NavDropdown.Item href="/admin/addpost">Add</NavDropdown.Item>
@@ -59,7 +68,7 @@ export const NavComp = () => {
                     </Navbar.Collapse>
                 </Nav>
                 </Container>
-            :<></>
+            :   <></>
             }
         </Navbar>
     )

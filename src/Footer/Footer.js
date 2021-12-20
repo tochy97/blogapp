@@ -13,15 +13,14 @@ const Footer = () => {
                 <Col style={{marginLeft:"3rem"}}>
                     <p><NavLink to="/aboutSite" style={{color:"black", textDecoration:0}}>About Site</NavLink></p>
                     <p><NavLink to="/aboutCreator" style={{color:"black", textDecoration:0}}>About Creator</NavLink></p>
-                    <p><NavLink to="/aboutCreator" style={{color:"black", textDecoration:0}}>Other Projects</NavLink></p>
                     <p><NavLink to="/req" style={{color:"black", textDecoration:0}}>Contact Me</NavLink></p>
                 </Col>
                 <Col className="flex items-center">
                     <a aria-label="Linkedin"  href="https://www.linkedin.com/in/tochukwu-egeonu-79935a127/">
-                        <img style={{width:"2rem", margin:"2rem"}} src= {linkedin} alt = "linkedin"/>
+                        <img style={{width:"2rem", margin:"1rem"}} src= {linkedin} alt = "linkedin"/>
                     </a>
                     <a aria-label="Github"  href="https://github.com/tochy97">
-                        <img style={{width:"2rem", margin:"2rem"}} src= {github} alt = "github"/>
+                        <img style={{width:"2rem", margin:"1rem"}} src= {github} alt = "github"/>
                     </a>
                 </Col>
             </Row>
