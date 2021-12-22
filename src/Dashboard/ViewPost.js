@@ -29,23 +29,26 @@ const ViewPost = () => {
 
     function handleSubmit(e){
         e.preventDefault();
-        if(currentUser)
-        {
-            if(!comment || comment.length > 255){
-                return setError("Please enter a comment no more than 255 charecters");
+        if(currentUser){
+            try{
+                if(!comment || comment.length > 255){
+                    return setError("Please enter a comment no more than 255 charecters");
+                }
+                setError("");
+                const data={
+                    id:postId,
+                    author: currentUser.displayName,
+                    createdBy: currentUser.uid,
+                    createdDate: new Date(),
+                    comment:comment,
+                }
+                dispatch(doComment(data,postId,currentPost.data.comments));
             }
-            setError("");
-            const data={
-                id:postId,
-                author: currentUser.displayName,
-                createdBy: currentUser.uid,
-                createdDate: new Date(),
-                comment:comment,
+            finally{
+                setComment(" ");
             }
-            dispatch(doComment(data,postId,currentPost.data.comments));
         }
-        else
-        {
+        else{
             return setError("You are not logged in");
         }
     }
@@ -104,7 +107,7 @@ const ViewPost = () => {
                                         <Form className='mt-2' onSubmit={handleSubmit}>
                                             {error && <Alert variant="danger">{error}</Alert>}
                                             <Form.Group id="comment">
-                                                <textarea className="form-control mb-2" value={comment} onChange={e=>{setComment(e.target.value)}} style={{height: "105px", marginTop: "1rem"}} placeholder="Leave a comment..."/>
+                                                <textarea className="form-control mb-2" value={comment} onChange={e=>{setComment(e.target.value)}} style={{height: "105px", marginTop: "1rem"}} placeholder="Leave a comment..." required/>
                                             </Form.Group>
                                             <Button className="w-100 mt-3" variant="dark" type="submit">Post Comment</Button>
                                         </Form>
