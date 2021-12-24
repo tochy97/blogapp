@@ -30,12 +30,7 @@ export const ManagePost = () => {
             <Row className="px-5 my-6 gap-5">
                 { 
 
-                    isLoading 
-                    ? 
-                            <Card className="py-4" style={{height:"70vh"}}>
-                                <Divider><h1>Loading...</h1></Divider> 
-                            </Card>
-                    : post.length < 1 || myPosts.length < 1 
+                    post.length < 1 || myPosts.length < 1 
                     ? 
                         <Card className="py-4" style={{height:"70vh"}}>
                             <Divider><h1>You have no posts</h1></Divider>
@@ -49,6 +44,13 @@ export const ManagePost = () => {
                                     pst.data.postType === "img"
                                     ?
                                         <Card.Img src={pst.data.post} alt={pst.data.title}/>
+                                    :
+                                    pst.data.postType === "mp4"
+                                    ?
+                                        <video width="100%" controls>
+                                            <source src={pst.data.post} type="video/mp4"/>
+                                        Your browser does not support HTML video.
+                                        </video>
                                     :
                                         <Card.Text style={{padding:"5rem"}}>{pst.data.post}</Card.Text>
                                 }

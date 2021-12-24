@@ -1,18 +1,20 @@
 import React from 'react'
-import { Navbar, Nav, NavDropdown, Container } from 'react-bootstrap'
+import { Navbar, Nav, NavDropdown, Container, Offcanvas } from 'react-bootstrap'
 import { useSelector, useDispatch, shallowEqual } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { auth } from '../config/firebase'
 import { getAuth } from "firebase/auth";
 import {logoutUser} from "../redux/actionCreators/authActionCreators"   
+import { Divider } from '@mui/material'
 
 export const NavComp = () => {
     const dispatch = useDispatch();
     const histroy = useNavigate();
     const { currentUser } = getAuth();
 
-    const {isLoading, user} = useSelector(
+    const {isLoading, isLoggedin, user} = useSelector(
         (state) =>({
+            isLoggedin:state.post.isLoading, 
             isLoading:state.post.isLoading, 
             user:state.auth.user,
         }), shallowEqual
@@ -24,52 +26,65 @@ export const NavComp = () => {
         histroy("../../dashboard", {replace:true});
     }
     return (
-
-        <Navbar bg="light" expand="lg" variant="light" style={{padding: "20px",color:"#fff", borderRight:0}} >
+        <Navbar bg="light" expand={false} variant="light" style={{padding: "20px",color:"#fff", borderRight:0}} >
             { 
                 !isLoading 
                 ?
-                <Container>
+        <Container fluid>
+        <Navbar.Brand href="/">Dashboard</Navbar.Brand>
+            <Navbar.Toggle aria-controls="offcanvasNavbar" style={{border:0}}>Options</Navbar.Toggle>
+            <Navbar.Offcanvas
+            id="offcanvasNavbar"
+            aria-labelledby="offcanvasNavbarLabel"
+            placement="end"
+            >
+            <Offcanvas.Header closeButton>
                 {   
+                    currentUser
+                    ?
+                        <Offcanvas.Title id="offcanvasNavbarLabel">Hello, {user.displayName}</Offcanvas.Title>
+                    :
+                        <Offcanvas.Title id="offcanvasNavbarLabel">Hello, guest</Offcanvas.Title>
+                }
+            </Offcanvas.Header>
+            <Offcanvas.Body>
+                { 
                     currentUser 
                     ?
-                        <Navbar.Brand href="../../">Hello, {user.displayName}</Navbar.Brand>
+                    <>  
+                        <Nav.Item  style={{marginLeft:"1rem"}}>
+                            <Nav.Link href="/admin/managepost" style={{color:"black"}}>Manage</Nav.Link>
+                        </Nav.Item>
+                        <Divider style={{margin:"1rem"}}/>
+                        <Nav.Item  style={{marginLeft:"1rem"}}>
+                            <Nav.Link href="/admin/addpost" style={{color:"black"}}>Add</Nav.Link>
+                        </Nav.Item>
+                        <Divider style={{margin:"1rem"}}/>
+                        <Nav.Item  style={{marginLeft:"1rem"}}>
+                            <Nav.Link href="/admin/register" style={{color:"black"}}>Register</Nav.Link>
+                        </Nav.Item>
+                        <Divider style={{margin:"1rem"}}/>
+                        <Nav.Item  style={{marginLeft:"1rem"}}>
+                            <Nav.Item  placement="end"  variant="light" style={{color:"#878787", padding:"1rem"}} type="button" onClick={logout}>Logout</Nav.Item>
+                        </Nav.Item>
+                    </>
                     :
-                        <Navbar.Brand href="/">Dashboard</Navbar.Brand>
+                    <>
+                        <Nav.Item  style={{marginLeft:"15px"}}>
+                            <Nav.Link href="/login" style={{color:"black"}}>Login</Nav.Link>
+                        </Nav.Item>
+                        <Divider style={{margin:"1rem"}}/>
+                        <Nav.Item  style={{marginLeft:"15px"}}>
+                            <Nav.Link href="/req" style={{color:"black"}}>Request Account</Nav.Link>
+                        </Nav.Item>
+                    </>
                 }
-                <Nav className="me-auto">
-                <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                    <Navbar.Collapse id="basic-navbar-nav">
-                    { 
-                        currentUser 
-                        ?
-                        <>
-                            <NavDropdown title="Posts"  style={{marginLeft:"15px"}}>
-                                <NavDropdown.Item href="/admin/addpost">Add</NavDropdown.Item>
-                                <NavDropdown.Item href="/admin/managepost">Manage</NavDropdown.Item>
-                            </NavDropdown>
-                            <Nav.Item  style={{marginLeft:"15px"}}>
-                                <Nav.Link href="/admin/register">Register</Nav.Link>
-                            </Nav.Item>
-                            <Nav.Item  style={{marginLeft:"15px"}}>
-                                <Nav.Item  placement="end"  variant="light" style={{color:"#878787"}} type="button" onClick={logout}>Logout</Nav.Item>
-                            </Nav.Item>
-                        </>
-                        :
-                        <>
-                            <Nav.Item  style={{marginLeft:"15px"}}>
-                                <Nav.Link href="/login">Login</Nav.Link>
-                            </Nav.Item>
-                            <Nav.Item  style={{marginLeft:"15px"}}>
-                                <Nav.Link href="/req">Request Account</Nav.Link>
-                            </Nav.Item>
-                        </>
-                    }
-                    </Navbar.Collapse>
-                </Nav>
-                </Container>
-            :   <></>
-            }
+            </Offcanvas.Body>
+            </Navbar.Offcanvas>
+        </Container>
+        :
+        <></>
+        }
         </Navbar>
     )
 }

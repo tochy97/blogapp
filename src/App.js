@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 import { useDispatch,useSelector } from 'react-redux';
 import { Routes, Route, Navigate } from "react-router-dom";
+import { Divider } from '@mui/material';
+import { Card } from 'react-bootstrap';
 import Admin from "./Admin";
 import NavComp from './NavComp/NavComp';
 import { fetchPost } from './redux/actionCreators/postActionCreators';
@@ -22,6 +24,7 @@ function App() {
       dispatch(fetchPost());
     }
   }, [isLoading,dispatch]);
+
   useEffect(() => {
       auth.onAuthStateChanged(user=>{
           if(user === null){
@@ -38,16 +41,26 @@ function App() {
   return (
     <div className="App">
       <NavComp/>
-      <Routes>
-        <Route exact path="post/:postId" element={<ViewPost/>}/>
-        <Route exact path="/" element={<Dashboard/>}/>
-        <Route exact path="/aboutcreator" element={<AboutCreator/>}/>
-        <Route exact path="/aboutsite" element={<AboutSite/>}/>
-        <Route path="/admin/*" element={<Admin/>}/>
-        <Route path="/login" element={<Navigate to="../admin/login" />}/>
-        <Route path="/req" element={<ReqAcc/>}/>
-      </Routes>
-      <Footer/>
+      { 
+        !isLoading
+        ?
+        <>
+        <Routes>
+          <Route exact path="post/:postId" element={<ViewPost/>}/>
+          <Route exact path="/" element={<Dashboard/>}/>
+          <Route exact path="/aboutcreator" element={<AboutCreator/>}/>
+          <Route exact path="/aboutsite" element={<AboutSite/>}/>
+          <Route path="/admin/*" element={<Admin/>}/>
+          <Route path="/login" element={<Navigate to="../admin/login" />}/>
+          <Route path="/req" element={<ReqAcc/>}/>
+        </Routes>
+        <Footer/>
+        </>
+        :
+          <Card className="py-4" style={{height:"70vh"}}>
+              <Divider><h1>Loading...</h1></Divider> 
+          </Card>
+      }
     </div>
   );
 }

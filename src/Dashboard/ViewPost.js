@@ -61,9 +61,7 @@ const ViewPost = () => {
     return (
         <>
         { 
-            isLoading 
-                ? <Divider><h1>Loading...</h1></Divider> 
-            :  (post.length < 1 || !isLoading) && !currentPost
+            (post.length < 1 || !isLoading) && !currentPost
                 ? <Divider><h1>No Post Found</h1></Divider>
             :
                 <Container>
@@ -73,6 +71,13 @@ const ViewPost = () => {
                                 currentPost.data.postType === "img"
                                 ?
                                     <Card.Img src={currentPost.data.post} alt={currentPost.data.title}/>
+                                :
+                                currentPost.data.postType === "mp4"
+                                ?
+                                    <video width="auto" controls auto>
+                                        <source src={currentPost.data.post} type="video/mp4"/>
+                                    Your browser does not support HTML video.
+                                    </video>
                                 :
                                     <Card.Text style={{padding:"5rem"}}>{currentPost.data.post}</Card.Text>
                             }

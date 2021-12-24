@@ -109,7 +109,7 @@ export const AddPost = () => {
                         progress > 0 && progress < 100
                         ? 
                             <> 
-                                <Divider className="font-weight-bold text-center py-4"><h1>Uploading Post{progress} % </h1></Divider>  <ProgressBar now={progress} max={100}/> 
+                                <Divider className="font-weight-bold text-center py-4"><h1>Uploading Post {progress} % </h1></Divider>  <ProgressBar now={progress} max={100}/> 
                             </> 
                         : progress === 100 
                         ? 
@@ -135,6 +135,7 @@ export const AddPost = () => {
                                     <Form.Select value={postType} onChange={e=>setPostType(e.target.value)} aria-label="Floating label select example">
                                         <option value="txt">Text</option>
                                         <option value="img">Image</option>
+                                        <option value="mp4">MP4 Video</option>
                                     </Form.Select>
                                 </FloatingLabel>
                                 {
@@ -142,6 +143,12 @@ export const AddPost = () => {
                                     ?
                                         <Form.Group id="post">
                                             <Form.Control type="file" accept=".png, .jpg, .jpeg, .gif, .heic" onChange={e=>setPost(e.target.files[0])} style={{marginTop: "1rem"}}/>
+                                        </Form.Group>
+                                    :
+                                    postType === "mp4"
+                                    ?
+                                        <Form.Group id="post">
+                                            <Form.Control type="file" accept=".mp4" onChange={e=>setPost(e.target.files[0])} style={{marginTop: "1rem"}}/>
                                         </Form.Group>
                                     :
                                         <Form.Floating id="post">
