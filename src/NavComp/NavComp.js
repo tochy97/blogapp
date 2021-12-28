@@ -75,7 +75,7 @@ export const NavComp = () => {
                         </Nav.Item>
                         <Divider style={{margin:"1rem"}}/>
                         <Nav.Item  style={{marginLeft:"15px"}}>
-                            <Nav.Link href="/req" style={{color:"black"}}>Request Account</Nav.Link>
+                            <Nav.Link href="/req" style={{color:"black"}}>Contact Me</Nav.Link>
                         </Nav.Item>
                     </>
                 }

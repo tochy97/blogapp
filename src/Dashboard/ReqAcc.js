@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { shallowEqual, useSelector, useDispatch } from 'react-redux';
-import {Row, Col, Form, Button, Card, Alert} from "react-bootstrap";
+import {Row, Col, Form, Button, Card, Alert, Container} from "react-bootstrap";
 import { setRequest, checkRequest } from '../redux/actionCreators/authActionCreators';
 import { Divider } from '@mui/material';
 
@@ -38,9 +38,13 @@ const ReqAcc = () => {
                 <Divider><h1 className='text-center mt-5'>Request Sent</h1></Divider>
             :
                 <>
-                <Divider className="font-weight-bold text-center py-4"><h1>Request an Account</h1></Divider>
+                <Divider className="font-weight-bold text-center py-4"><h1>Contact Me</h1></Divider>
                 {error && <Alert variant="danger">{error}</Alert>}
                 <Col lg={10} className="mx-auto">
+                    <Container className='p-2 m-2'>
+                        <Divider>Phone: (469) - 658 - 6413 </Divider>
+                        <Divider>Email: tochyegeonu97@hotmail.com </Divider>
+                    </Container>
                     <Form onSubmit={handleSubmit}>
                         <Form.Floating id="realname">
                             <Form.Control type="text"value={realname} placeholder="First and Last Name" onChange={e=>setRealname(e.target.value)} required></Form.Control>                            
@@ -51,8 +55,8 @@ const ReqAcc = () => {
                             <Form.Label>Email</Form.Label>
                         </Form.Floating>
                         <Form.Floating id="desc" style={{marginTop: "1rem"}} >
-                            <textarea className="form-control" value={req} onChange={e=>setReq(e.target.value)} style={{height: "105px", marginTop: "1rem"}} placeholder="Why do you want an account...?" required/>
-                            <Form.Label>Why do you want an account...?</Form.Label>
+                            <textarea className="form-control" value={req} onChange={e=>setReq(e.target.value)} style={{height: "105px", marginTop: "1rem"}} placeholder="Enter your messages" required/>
+                            <Form.Label>Enter your message</Form.Label>
                         </Form.Floating>
                         <Button className="w-100 mt-4" variant="dark" type="submit">Send Request</Button>
                     </Form>

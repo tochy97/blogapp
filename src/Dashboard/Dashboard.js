@@ -5,6 +5,7 @@ import {useNavigate} from "react-router-dom"
 import { Divider } from '@mui/material';
 import { fetchPost } from '../redux/actionCreators/postActionCreators';
 import { checkUser } from '../redux/actionCreators/authActionCreators';
+import AboutCreator from './AboutCreator';
 
 export const Dashboard = () => {
     const {isLoading, post, userID} = useSelector(
@@ -31,6 +32,8 @@ export const Dashboard = () => {
 
     return (
         <Card className="py-4" style={{border:0}}>
+            <AboutCreator/>
+            <Divider className='p-5'><h1>Recent Posts</h1></Divider>
             <Row className="px-5 my-6 gap-5">
                 {
                     post.length < 1 || myPosts.length < 1 

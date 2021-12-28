@@ -12,7 +12,6 @@ const Footer = () => {
             <Row style={{marginTop:"1rem", padding:"1rem", bottom:0, left:0, width:"full"}}>
                 <Col style={{marginLeft:"3rem"}}>
                     <p><NavLink to="/aboutSite" style={{color:"black", textDecoration:0}}>About Site</NavLink></p>
-                    <p><NavLink to="/aboutCreator" style={{color:"black", textDecoration:0}}>About Creator</NavLink></p>
                     <p><NavLink to="/req" style={{color:"black", textDecoration:0}}>Contact Me</NavLink></p>
                 </Col>
                 <Col className="flex items-center">
