@@ -1,7 +1,7 @@
 import React from 'react'
 import { Card, Row, Col} from 'react-bootstrap';
 import { Divider } from '@mui/material';
-import me from "./me.png"
+import me from "./me.jpg"
 
 const AboutCreator = () => {
     return (
