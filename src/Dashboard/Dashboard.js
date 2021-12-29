@@ -33,16 +33,15 @@ export const Dashboard = () => {
     return (
         <Card className="py-4" style={{border:0}}>
             <AboutCreator/>
-            <Divider className='p-5'><h1>Recent Posts</h1></Divider>
             <Row className="px-5 my-6 gap-5">
                 {
                     post.length < 1 || myPosts.length < 1 
                     ? 
-                        <Card className="py-4" style={{height:"70vh"}}>
-                            <Divider><h1>You have no posts</h1></Divider>
-                        </Card>
+                    <></>
                     : 
-                        myPosts.map((pst, index) =>(
+                        <>
+                        <Divider className='p-5'><h1>Recent Posts</h1></Divider>
+                        {myPosts.map((pst, index) =>(
                             <Card className="col-md-5 mx-auto px-0" key={index}>
                                 <Card.Header style={{padding:"2rem"}}>Title: {pst.data.title} <br/> Description: {pst.data.desc } <br/> By: {pst.data.author}</Card.Header>
                                 <Card.Body className='mb-5'>
@@ -65,7 +64,8 @@ export const Dashboard = () => {
                                         <Button variant="dark"  onClick={()=>histroy(`../../post/${pst.id}`, {replace:true})} className="form-control mb-0">View Post</Button>
                                     </Card.Footer>
                             </Card>
-                        ))
+                        ))}
+                        </>
                 }
             </Row>
         </Card>
